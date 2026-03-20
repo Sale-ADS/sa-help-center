@@ -1,0 +1,305 @@
+---
+title: Meta Troubleshooting
+description: Solutions to the most common issues when connecting Meta Ads
+---
+
+This guide covers the most frequent errors when connecting and configuring Meta Ads in SaleAds.ai.
+
+Don't worry, most of them are resolved in minutes. I will explain how to fix them step by step.
+
+---
+
+## Connection Problems
+
+### "Connection Failed"
+
+**Message:** `We couldn't connect your Meta account. Please try again.`
+
+**Possible causes:**
+
+1. **Permissions not granted:** You didn't accept all the requested permissions
+2. **Session expired:** Your Facebook session expired during the process
+3. **Pop-up blocker:** The authorization window was blocked
+4. **Temporary Meta issue:** Meta servers are not responding
+
+**Solutions:**
+
+**Solution 1: Retry**
+1. Click **"Retry"**
+2. Make sure to accept ALL permissions
+3. Don't close the pop-up window until you're done
+
+**Solution 2: Check pop-ups**
+1. Check if your browser blocked a pop-up window
+2. Allow pop-ups for saleads.ai
+3. Try again
+
+**Solution 3: Clear session**
+1. Log out of Facebook in another tab
+2. Log out of SaleAds.ai
+3. Log back in to both
+4. Try connecting again
+
+Following these steps will resolve the issue quickly.
+
+---
+
+### "Unexpected callback state"
+
+**Message:** `Unexpected callback state. Please try again.`
+
+**Cause:** Error during the OAuth authorization process.
+
+**Solution:**
+1. Close the current window/tab
+2. Return to the SaleAds.ai Dashboard
+3. Go to Connected Accounts
+4. Try connecting again
+
+This problem is resolved in a couple of clicks.
+
+---
+
+### The Facebook window doesn't open
+
+**Causes:**
+- Active pop-up blocker
+- Browser extensions interfering
+- Incompatible browser
+
+**Solution:**
+1. Disable the pop-up blocker
+2. Try in incognito/private mode
+3. Use an updated version of Chrome, Firefox, Safari, or Edge
+4. Temporarily disable extensions
+
+---
+
+## Business Manager Problems
+
+### "No Business Managers found"
+
+**Message:** `We couldn't find any Business Manager in your Meta account.`
+
+**Causes:**
+
+1. You don't have a Business Manager created
+2. You didn't select the Business Managers during authorization
+3. Your Facebook account is not associated with any Business Manager
+
+**Solutions:**
+
+**Solution 1: Create a Business Manager**
+1. Go to [business.facebook.com](https://business.facebook.com)
+2. Create a new Business Manager
+3. Return to SaleAds.ai
+4. Disconnect and reconnect Meta
+
+**Solution 2: Reconnect with all permissions**
+1. Disconnect the Meta account
+2. Reconnect
+3. During authorization, select ALL Business Managers
+
+---
+
+### "Error loading Business Managers"
+
+**Cause:** Communication issue with the Meta API.
+
+**Solution:**
+1. Click **"Retry"**
+2. Wait 30 seconds and try again
+3. If it persists, try in 5-10 minutes
+4. Check Meta's service status at [metastatus.com](https://metastatus.com)
+
+---
+
+## Ad Account Problems
+
+### "No ad accounts found"
+
+**Message:** `No ad accounts were found for the selected Business Manager.`
+
+**Causes:**
+- The Business Manager has no ad accounts
+- You don't have permissions on existing accounts
+
+**Solutions:**
+
+**Solution 1: Create a new account**
+1. Click **"Create New Ad Account"**
+2. Fill in the details
+3. The account will be created in your Business Manager
+
+**Solution 2: Request access**
+1. Contact the Business Manager administrator
+2. Request an admin role on the ad account
+3. Return to SaleAds.ai and refresh
+
+---
+
+### "Error creating ad account"
+
+**Causes:**
+- Account limit reached
+- Restrictions on your Facebook account
+- Temporary Meta error
+
+**Solution:**
+1. Check if your Facebook account has restrictions
+2. Check the account limit in your Business Manager
+3. Create the account manually in Business Manager
+4. Return to SaleAds.ai to select it
+
+---
+
+## Problems with Optional Assets
+
+### "No pages found"
+
+**Cause:** The page is not added to the Business Manager.
+
+**Solution:**
+1. Go to [business.facebook.com](https://business.facebook.com)
+2. Settings → Accounts → Pages
+3. Add your page
+4. Return to SaleAds.ai and refresh
+
+---
+
+### "No pixels found"
+
+**Cause:** No pixels have been created in the ad account.
+
+**Solution:**
+1. Click **"Create New Pixel"** in SaleAds.ai
+2. Or create the pixel manually in Events Manager
+
+---
+
+### "No Instagram accounts linked"
+
+**Cause:** Your Instagram account is not connected to the Facebook Page.
+
+**Solution:**
+1. Open Instagram → Settings → Account
+2. Linked Accounts → Facebook
+3. Select your Facebook Page
+4. Return to SaleAds.ai and refresh
+
+<Callout type="warn" title="Requirement">
+  The Instagram account must be a business or creator account.
+</Callout>
+
+
+---
+
+## Disconnect and Reconnect
+
+If no solution works, you can disconnect completely and start over.
+
+### Steps to Disconnect
+
+1. Go to **Connected Accounts**
+2. In Meta Ads, click **"Edit Configuration"**
+3. Click **"Disconnect Meta account"**
+4. Confirm: **"Are you sure?"** → **"Disconnect"**
+5. You will see: **"Meta account disconnected successfully"**
+
+### After Disconnecting
+
+- Your account returns to the "Not connected" status
+- You must reconnect and configure everything again
+- Existing strategies may be affected
+
+---
+
+## Revoke Permissions from Facebook
+
+If you want to completely remove SaleAds.ai access:
+
+1. Go to [facebook.com/settings](https://facebook.com/settings)
+2. Security and Login → Apps and Websites
+3. Search for SaleAds
+4. Click "Remove"
+5. Confirm the removal
+
+<Callout type="info" title="Note">
+  After revoking permissions, you will need to reconnect from scratch if you want to use SaleAds.ai again.
+</Callout>
+
+
+---
+
+## Save Errors
+
+### "Error saving configuration"
+
+**Causes:**
+- Internet connection issue
+- Session expired
+- Server error
+
+**Solution:**
+1. Check your internet connection
+2. Try saving again
+3. If it persists, reload the page and try again
+
+---
+
+### "Validation failed"
+
+**Message:** `Please select a Business Manager and an Ad Account to continue.`
+
+**Cause:** Required fields not completed.
+
+**Solution:**
+1. Make sure you have selected a Business Manager
+2. Make sure you have selected an Ad Account
+3. These two fields are required
+
+---
+
+## Error When Disconnecting
+
+### "Error disconnecting Meta account"
+
+**Solution:**
+
+1. Wait a few seconds and try disconnecting again
+2. Reload the page and try again
+3. If it fails, [contact support](/en/docs/solucion-problemas/contactar-soporte)
+
+---
+
+## General Checks
+
+If you have persistent problems with Meta Ads:
+
+1. **Check Meta:** Go to [business.facebook.com](https://business.facebook.com) and confirm you can access it
+2. **Try another browser:** Chrome, Firefox, Safari, Edge
+3. **Clear cache:** Clear your browser cache
+4. **Incognito mode:** Try in a private window
+
+---
+
+## Does the Problem Persist?
+
+If after trying all the solutions the problem continues:
+
+1. Take a screenshot of the error
+2. Write down the steps you took
+3. [Contact support](/en/docs/solucion-problemas/contactar-soporte) with this information
+
+### Useful Information for Support
+
+- The exact error message
+- When the problem started
+- Browser and version you are using
+- Whether you can access [business.facebook.com](https://business.facebook.com) normally
+
+---
+
+<Callout type="error" title="Does the problem persist?">
+  [Contact Support →](/en/docs/solucion-problemas/contactar-soporte)
+</Callout>

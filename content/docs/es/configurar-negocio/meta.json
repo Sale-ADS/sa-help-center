@@ -1,0 +1,11 @@
+{
+  "title": "Configurar Negocio",
+  "icon": "Building2",
+  "pages": [
+    "informacion-del-negocio",
+    "redes-sociales",
+    "ubicacion-audiencia",
+    "brief-audio",
+    "revisar-brief"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Solución de Problemas",
+  "icon": "HelpCircle",
+  "pages": [
+    "errores-meta",
+    "errores-archivos",
+    "errores-lanzamiento",
+    "preguntas-frecuentes",
+    "contactar-soporte"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Generar Creativos con IA",
+  "icon": "Sparkles",
+  "pages": [
+    "introduccion-al-generador",
+    "prompts-efectivos",
+    "niveles-calidad"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Planes y Créditos",
+  "icon": "CreditCard",
+  "pages": [
+    "sistema-creditos",
+    "creditos-incluidos",
+    "facturacion"
+  ]
+}

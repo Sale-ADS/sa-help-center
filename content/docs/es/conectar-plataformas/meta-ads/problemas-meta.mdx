@@ -1,0 +1,305 @@
+---
+title: Solución de Problemas de Meta
+description: Soluciones a los problemas más comunes al conectar Meta Ads
+---
+
+Esta guía cubre los errores más frecuentes al conectar y configurar Meta Ads en SaleAds.ai.
+
+No te preocupes, la mayoría se resuelven en minutos. Te explico cómo solucionarlos paso a paso.
+
+---
+
+## Problemas de Conexión
+
+### "Conexión Fallida"
+
+**Mensaje:** `No pudimos conectar tu cuenta de Meta. Por favor intenta de nuevo.`
+
+**Causas posibles:**
+
+1. **Permisos no otorgados:** No aceptaste todos los permisos solicitados
+2. **Sesión expirada:** Tu sesión de Facebook expiró durante el proceso
+3. **Bloqueador de pop-ups:** La ventana de autorización fue bloqueada
+4. **Problema temporal de Meta:** Los servidores de Meta no responden
+
+**Soluciones:**
+
+**Solución 1: Reintentar**
+1. Haz clic en **"Reintentar"**
+2. Asegúrate de aceptar TODOS los permisos
+3. No cierres la ventana emergente hasta que completes
+
+**Solución 2: Verificar pop-ups**
+1. Revisa si tu navegador bloqueó una ventana emergente
+2. Permite pop-ups para saleads.ai
+3. Intenta nuevamente
+
+**Solución 3: Limpiar sesión**
+1. Cierra sesión de Facebook en otra pestaña
+2. Cierra sesión de SaleAds.ai
+3. Vuelve a iniciar sesión en ambos
+4. Intenta conectar nuevamente
+
+Siguiendo estos pasos resolverás el problema rápidamente.
+
+---
+
+### "Estado de callback inesperado"
+
+**Mensaje:** `Estado de callback inesperado. Por favor intenta de nuevo.`
+
+**Causa:** Error durante el proceso de autorización OAuth.
+
+**Solución:**
+1. Cierra la ventana/pestaña actual
+2. Regresa al Dashboard de SaleAds.ai
+3. Ve a Cuentas Conectadas
+4. Intenta conectar nuevamente
+
+Este problema se resuelve en un par de clics.
+
+---
+
+### La ventana de Facebook no abre
+
+**Causas:**
+- Bloqueador de pop-ups activo
+- Extensiones del navegador interfiriendo
+- Navegador no compatible
+
+**Solución:**
+1. Desactiva el bloqueador de pop-ups
+2. Prueba en modo incógnito/privado
+3. Usa Chrome, Firefox, Safari o Edge actualizado
+4. Desactiva extensiones temporalmente
+
+---
+
+## Problemas de Business Manager
+
+### "No se encontraron Business Managers"
+
+**Mensaje:** `No pudimos encontrar ningún Business Manager en tu cuenta de Meta.`
+
+**Causas:**
+
+1. No tienes Business Manager creado
+2. No seleccionaste los Business Managers durante la autorización
+3. Tu cuenta de Facebook no está asociada a ningún Business Manager
+
+**Soluciones:**
+
+**Solución 1: Crear Business Manager**
+1. Ve a [business.facebook.com](https://business.facebook.com)
+2. Crea un nuevo Business Manager
+3. Regresa a SaleAds.ai
+4. Desconecta y vuelve a conectar Meta
+
+**Solución 2: Reconectar con todos los permisos**
+1. Desconecta la cuenta de Meta
+2. Vuelve a conectar
+3. Durante la autorización, selecciona TODOS los Business Managers
+
+---
+
+### "Error al cargar Business Managers"
+
+**Causa:** Problema de comunicación con la API de Meta.
+
+**Solución:**
+1. Haz clic en **"Reintentar"**
+2. Espera 30 segundos y vuelve a intentar
+3. Si persiste, intenta en 5-10 minutos
+4. Verifica el estado de los servicios de Meta en [metastatus.com](https://metastatus.com)
+
+---
+
+## Problemas de Cuenta Publicitaria
+
+### "No se encontraron cuentas publicitarias"
+
+**Mensaje:** `No se encontraron cuentas publicitarias para el Business Manager seleccionado.`
+
+**Causas:**
+- El Business Manager no tiene cuentas publicitarias
+- No tienes permisos en las cuentas existentes
+
+**Soluciones:**
+
+**Solución 1: Crear nueva cuenta**
+1. Haz clic en **"Crear Nueva Cuenta Publicitaria"**
+2. Completa los datos
+3. La cuenta se creará en tu Business Manager
+
+**Solución 2: Solicitar acceso**
+1. Contacta al administrador del Business Manager
+2. Solicita rol de administrador en la cuenta publicitaria
+3. Regresa a SaleAds.ai y actualiza
+
+---
+
+### "Error al crear la cuenta publicitaria"
+
+**Causas:**
+- Límite de cuentas alcanzado
+- Restricciones en tu cuenta de Facebook
+- Error temporal de Meta
+
+**Solución:**
+1. Verifica si tu cuenta de Facebook tiene restricciones
+2. Verifica el límite de cuentas en tu Business Manager
+3. Crea la cuenta manualmente en Business Manager
+4. Regresa a SaleAds.ai a seleccionarla
+
+---
+
+## Problemas con Activos Opcionales
+
+### "No se encontraron páginas"
+
+**Causa:** La página no está agregada al Business Manager.
+
+**Solución:**
+1. Ve a [business.facebook.com](https://business.facebook.com)
+2. Configuración → Cuentas → Páginas
+3. Agrega tu página
+4. Regresa a SaleAds.ai y actualiza
+
+---
+
+### "No se encontraron pixels"
+
+**Causa:** No hay pixels creados en la cuenta publicitaria.
+
+**Solución:**
+1. Haz clic en **"Crear Nuevo Pixel"** en SaleAds.ai
+2. O crea el pixel manualmente en Events Manager
+
+---
+
+### "No hay cuentas de Instagram vinculadas"
+
+**Causa:** Tu cuenta de Instagram no está conectada a la Página de Facebook.
+
+**Solución:**
+1. Abre Instagram → Configuración → Cuenta
+2. Cuentas vinculadas → Facebook
+3. Selecciona tu Página de Facebook
+4. Regresa a SaleAds.ai y actualiza
+
+<Callout type="warn" title="Requisito">
+  La cuenta de Instagram debe ser de negocio o creador.
+</Callout>
+
+
+---
+
+## Desconectar y Reconectar
+
+Si ninguna solución funciona, puedes desconectar completamente y empezar de nuevo.
+
+### Pasos para Desconectar
+
+1. Ve a **Cuentas Conectadas**
+2. En Meta Ads, haz clic en **"Editar Configuración"**
+3. Haz clic en **"Desconectar cuenta de Meta"**
+4. Confirma: **"¿Estás seguro?"** → **"Desconectar"**
+5. Verás: **"Cuenta de Meta desconectada exitosamente"**
+
+### Después de Desconectar
+
+- Tu cuenta vuelve al estado "No conectado"
+- Debes volver a conectar y configurar todo
+- Las estrategias existentes pueden verse afectadas
+
+---
+
+## Revocar Permisos desde Facebook
+
+Si quieres eliminar completamente el acceso de SaleAds.ai:
+
+1. Ve a [facebook.com/settings](https://facebook.com/settings)
+2. Seguridad e inicio de sesión → Apps y sitios web
+3. Busca SaleAds
+4. Haz clic en "Eliminar"
+5. Confirma la eliminación
+
+<Callout type="info" title="Nota">
+  Después de revocar permisos, deberás reconectar desde cero si quieres usar SaleAds.ai nuevamente.
+</Callout>
+
+
+---
+
+## Errores de Guardado
+
+### "Error al guardar la configuración"
+
+**Causas:**
+- Problema de conexión a internet
+- Sesión expirada
+- Error del servidor
+
+**Solución:**
+1. Verifica tu conexión a internet
+2. Intenta guardar nuevamente
+3. Si persiste, recarga la página e intenta de nuevo
+
+---
+
+### "Validación fallida"
+
+**Mensaje:** `Por favor selecciona un Business Manager y una Cuenta Publicitaria para continuar.`
+
+**Causa:** Campos obligatorios no completados.
+
+**Solución:**
+1. Asegúrate de haber seleccionado un Business Manager
+2. Asegúrate de haber seleccionado una Cuenta Publicitaria
+3. Estos dos campos son obligatorios
+
+---
+
+## Error al Desconectar
+
+### "Error al desconectar la cuenta de Meta"
+
+**Solución:**
+
+1. Espera unos segundos e intenta desconectar nuevamente
+2. Recarga la página y vuelve a intentar
+3. Si falla, [contacta a soporte](/es/docs/solucion-problemas/contactar-soporte)
+
+---
+
+## Verificaciones Generales
+
+Si tienes problemas persistentes con Meta Ads:
+
+1. **Verifica en Meta:** Ve a [business.facebook.com](https://business.facebook.com) y confirma que puedes acceder
+2. **Prueba otro navegador:** Chrome, Firefox, Safari, Edge
+3. **Limpia el caché:** Borra el caché del navegador
+4. **Modo incógnito:** Prueba en ventana privada
+
+---
+
+## ¿El Problema Persiste?
+
+Si después de intentar todas las soluciones el problema continúa:
+
+1. Toma una captura de pantalla del error
+2. Anota los pasos que realizaste
+3. [Contacta a soporte](/es/docs/solucion-problemas/contactar-soporte) con esta información
+
+### Información Útil para Soporte
+
+- El mensaje de error exacto
+- Cuándo comenzó el problema
+- Navegador y versión que usas
+- Si puedes acceder a [business.facebook.com](https://business.facebook.com) normalmente
+
+---
+
+<Callout type="error" title="¿El problema persiste?">
+  [Contactar Soporte →](/es/docs/solucion-problemas/contactar-soporte)
+</Callout>

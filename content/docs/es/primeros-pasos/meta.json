@@ -1,0 +1,10 @@
+{
+  "title": "Primeros Pasos",
+  "icon": "UserPlus",
+  "pages": [
+    "crear-cuenta",
+    "seleccionar-plan",
+    "planes-disponibles",
+    "navegacion-dashboard"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Getting Started",
+  "icon": "UserPlus",
+  "pages": [
+    "crear-cuenta",
+    "seleccionar-plan",
+    "planes-disponibles",
+    "navegacion-dashboard"
+  ]
+}

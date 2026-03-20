@@ -1,0 +1,11 @@
+{
+  "title": "Launch Campaign",
+  "icon": "Rocket",
+  "pages": [
+    "gestionar-campanas",
+    "editar-copies",
+    "revision-final",
+    "lanzar-meta",
+    "estrategias-lanzadas"
+  ]
+}

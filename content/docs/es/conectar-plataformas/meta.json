@@ -1,0 +1,10 @@
+{
+  "title": "Conectar Plataformas",
+  "icon": "Link2",
+  "pages": [
+    "index",
+    "meta-ads",
+    "google",
+    "tiktok"
+  ]
+}
