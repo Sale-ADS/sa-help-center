@@ -14,5 +14,6 @@ export {
 } from 'lucide-react';
 export { MetaIcon, GoogleIcon, TikTokIcon } from '@/components/icons';
 export { GoogleDriveEmbed } from '@/components/google-drive-embed';
+export { YoutubeEmbed } from '@/components/youtube-embed';
 export { Callout } from '@/components/callout';
 export { Card, Cards } from '@/components/card';
