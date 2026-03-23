@@ -1,0 +1,290 @@
+---
+title: Conversion Tracking
+description: Set up conversion tracking to measure results
+---
+
+Conversion tracking lets you know what happens after users interact with your ads: whether they bought a product, signed up, called your business, or downloaded your app. This information is essential for optimizing your campaigns and maximizing your return on investment.
+
+<Callout type="info" title="Note">
+  This section is optional but highly recommended. You can set up conversions now or later.
+</Callout>
+
+---
+
+## What is Conversion Tracking?
+
+Conversions are valuable actions users take on your website after clicking your ad. Common examples:
+
+- Product purchase
+- Contact form submission
+- Newsletter signup
+- Phone call
+- App download
+
+### Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **Measure ROI** | Know exactly how much each conversion costs you |
+| **Optimize** | Let Google automatically optimize to get more conversions |
+| **Attribution** | Understand which keywords and ads generate results |
+| **Remarketing** | Create audiences of users who already interacted with you |
+
+---
+
+## Conversion Types
+
+Google Ads allows you to track different types of conversions:
+
+### Website Conversions
+
+Actions that occur on your website:
+- Purchases
+- Signups
+- Form submissions
+- Key page visits
+
+### Calls
+
+- Calls from ads (call extensions)
+- Calls from your website
+- Clicks on phone numbers on mobile
+
+### Mobile App
+
+- App installations
+- In-app actions
+- In-app purchases
+
+### Imported
+
+- Offline conversions (CRM, phone sales)
+- Imported from GA4 or other sources
+
+---
+
+## Create a Conversion Action
+
+### Step 1: Create in Google Ads
+
+1. Go to [ads.google.com](https://ads.google.com)
+2. Click **Tools** (⚙️) → **Conversions**
+3. Click **"New conversion action"**
+4. Select **"Website"**
+
+### Step 2: Configure the Conversion
+
+**Name:** Use something descriptive (e.g., "Purchase", "Signup", "Contact")
+
+**Category:**
+- Purchase
+- Signup
+- Lead
+- Subscription
+- Key page view
+- Other
+
+**Value:**
+- **Same value:** Each conversion is worth the same (e.g., $50)
+- **Different values:** Value varies (e.g., e-commerce purchases)
+
+**Count:**
+- **One:** Count only one conversion per click (ideal for leads)
+- **Every:** Count all conversions (ideal for purchases)
+
+**Conversion window:**
+- How long after the click the conversion counts
+- Options: 1 day to 90 days (30 days is most common)
+
+---
+
+## Install the Tracking Code
+
+There are two main methods to install tracking:
+
+### Method 1: Google Tag Manager (Recommended)
+
+This is the most flexible and easy to maintain method.
+
+**Step 1: Create Google Tag**
+
+1. Go to [tagmanager.google.com](https://tagmanager.google.com)
+2. Create a new tag
+3. Select **"Google Tag"**
+4. Enter your Google Ads ID (format: AW-XXXXXXXXX)
+5. Set trigger to "All pages"
+6. Save and publish
+
+**Step 2: Create Conversion Tag**
+
+1. Create another tag
+2. Select **"Google Ads Conversion Tracking"**
+3. Enter:
+   - **Conversion ID:** Your account ID (AW-XXXXXXXXX)
+   - **Conversion Label:** The unique code for this conversion
+4. Configure the trigger (when it should fire):
+   - Confirmation page (/thanks, /thank-you)
+   - Custom event (form submitted)
+   - Transaction completed
+
+**Step 3: Test**
+
+1. Use GTM **Preview** mode
+2. Complete a test conversion
+3. Verify the tag fires correctly
+4. Publish changes
+
+### Method 2: Direct Installation (gtag.js)
+
+If you don't use Google Tag Manager, you can install the code directly:
+
+**Step 1: Global Google Tag**
+
+Add this code in the `<head>` of ALL pages:
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXX');
+</script>
+```
+
+**Step 2: Conversion Event**
+
+On the confirmation page (after conversion), add:
+
+```html
+<script>
+  gtag('event', 'conversion', {
+    'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYY',
+    'value': 25.0,  // Conversion value
+    'currency': 'USD',
+    'transaction_id': '12345'  // Unique transaction ID
+  });
+</script>
+```
+
+---
+
+## Enhanced Conversions
+
+Enhanced conversions improve tracking accuracy by securely sending additional data.
+
+### Benefits
+
+- Better attribution when there are cookie restrictions
+- Recovery of conversions that would otherwise be lost
+- Improvement in automatic bid optimization
+
+### Set Up
+
+1. In Google Ads, go to **Conversions** → **Settings**
+2. Turn on **"Enhanced conversions"**
+3. Choose the method:
+   - **Automatic detection:** Google detects the data
+   - **Manual:** You configure the data through GTM
+
+---
+
+## Test the Tracking
+
+### Google Tag Assistant
+
+Chrome extension to verify tags are working:
+
+1. Install **Google Tag Assistant** from Chrome Web Store
+2. Enable it on your website
+3. Verify the Google Tag (AW-XXXXX) is installed
+4. Complete a test conversion
+5. Confirm the conversion tag fires
+
+### Test Mode in GTM
+
+1. In GTM, click **"Preview"**
+2. Enter your site URL
+3. Complete a conversion
+4. In the debug panel, verify:
+   - The Google Tag loads
+   - The conversion tag fires on the correct page
+
+---
+
+## Primary vs. Secondary Conversions
+
+### Primary Conversions
+
+These are your main business goals. Google optimizes your campaigns to get more of these:
+- Purchases
+- Signups
+- Quote requests
+
+### Secondary Conversions
+
+These are recorded but don't affect optimization:
+- "About" page visits
+- Resource downloads
+- Time on site
+
+<Callout type="info" title="Configuration">
+  In Google Ads, go to Conversions and mark each action as "Primary" or "Secondary" based on its importance to your business.
+</Callout>
+
+---
+
+## Troubleshooting
+
+### "Tag not firing"
+
+**Verify:**
+1. Is the Google Tag on all pages?
+2. Is the trigger configured correctly?
+3. Are there JavaScript errors in the console?
+
+### "Conversions not appearing"
+
+**Causes:**
+- Normal delay: 24-48 hours for first conversion
+- Tag not installed correctly
+- Users using ad blockers
+
+**Solution:**
+1. Verify installation with Google Tag Assistant
+2. Wait 48 hours
+3. Enable enhanced conversions
+
+### "Discrepancy with GA4"
+
+It's normal to see differences between Google Ads and GA4:
+- Different attribution models
+- Different conversion windows
+- Google Ads uses last click, GA4 uses data-driven
+
+---
+
+## Verify Status in SaleAds.ai
+
+Once tracking is configured, you can see conversions in your SaleAds.ai dashboard:
+
+1. Go to **Strategies**
+2. Select a Google Ads strategy
+3. You'll see conversion metrics in the analytics panel
+
+---
+
+## Complete Configuration
+
+Once you've configured the elements you need:
+
+1. Review the configuration summary in **Connected Accounts**
+2. Verify Google Ads shows **"Configured"** status
+3. You're ready to create Google Ads strategies!
+
+---
+
+<Callout type="info" title="Next step">
+  [Configure Your Business →](/en/docs/configurar-negocio/brief-audio)
+</Callout>

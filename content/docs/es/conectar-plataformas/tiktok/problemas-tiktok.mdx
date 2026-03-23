@@ -1,0 +1,330 @@
+---
+title: Solución de Problemas de TikTok Ads
+description: Soluciones a los problemas más comunes al conectar TikTok Ads
+---
+
+Esta guía cubre los errores más frecuentes al conectar y configurar TikTok Ads en SaleAds.ai.
+
+No te preocupes, la mayoría se resuelven en minutos. Te explico cómo solucionarlos paso a paso.
+
+---
+
+## Problemas de Conexión
+
+### "Error de autorización"
+
+**Mensaje:** `No pudimos autorizar el acceso a tu cuenta de TikTok Ads. Por favor intenta de nuevo.`
+
+**Causas posibles:**
+
+1. **Permisos no otorgados:** No aceptaste todos los permisos solicitados durante el proceso OAuth
+2. **Sesión expirada:** Tu sesión de TikTok expiró durante el proceso
+3. **Bloqueador de pop-ups:** La ventana de autorización fue bloqueada
+4. **Cuenta incorrecta:** Iniciaste sesión con una cuenta de TikTok que no tiene Business Center
+
+**Soluciones:**
+
+**Solución 1: Reintentar con todos los permisos**
+1. Haz clic en **"Reintentar"**
+2. Asegúrate de aceptar TODOS los permisos que solicita TikTok
+3. No cierres la ventana emergente hasta que completes el proceso
+
+**Solución 2: Verificar pop-ups**
+1. Revisa si tu navegador bloqueó una ventana emergente
+2. Permite pop-ups para saleads.ai
+3. Intenta nuevamente
+
+**Solución 3: Verificar cuenta de TikTok**
+1. Asegúrate de que estás iniciando sesión con la cuenta Business correcta
+2. Si tienes varias cuentas, cierra sesión en todas y usa solo la correcta
+3. Verifica que esta cuenta tiene acceso al Business Center
+
+---
+
+### "No se encontraron cuentas publicitarias"
+
+**Mensaje:** `No pudimos encontrar ninguna cuenta de TikTok Ads asociada a esta cuenta.`
+
+**Causas:**
+
+1. La cuenta de TikTok no tiene un Business Center creado
+2. No has creado una cuenta publicitaria dentro del TikTok Ads Manager
+3. La cuenta publicitaria está suspendida o pendiente de revisión
+
+**Soluciones:**
+
+**Solución 1: Crear Business Center y cuenta publicitaria**
+1. Ve a [business.tiktok.com](https://business.tiktok.com)
+2. Crea un Business Center
+3. Dentro del Business Center, crea una nueva cuenta publicitaria
+4. Espera la aprobación (puede tardar hasta 24-48 horas)
+5. Regresa a SaleAds.ai y vuelve a intentar la conexión
+
+**Solución 2: Verificar estado de la cuenta**
+1. Ve a [ads.tiktok.com](https://ads.tiktok.com)
+2. Verifica que la cuenta esté activa (no suspendida)
+3. Si está en revisión, espera la aprobación de TikTok
+
+---
+
+### "Permiso denegado"
+
+**Mensaje:** `No tienes permisos suficientes para acceder a esta cuenta.`
+
+**Causas:**
+
+1. Tu rol en el Business Center es "Analista" o "Finanzas" (necesitas "Operador" o "Administrador")
+2. No tienes acceso asignado a la cuenta publicitaria específica
+
+**Solución:**
+
+1. Contacta al administrador del Business Center
+2. Solicita que te asigne el rol de **"Operador"** o **"Administrador"**
+3. Asegúrate de tener acceso a la cuenta publicitaria específica que quieres conectar
+
+---
+
+### La ventana de TikTok no abre
+
+**Causas:**
+- Bloqueador de pop-ups activo
+- Extensiones del navegador interfiriendo
+- Navegador no compatible
+- Cookies de terceros deshabilitadas
+
+**Solución:**
+1. Desactiva el bloqueador de pop-ups para saleads.ai
+2. Habilita cookies de terceros en tu navegador
+3. Prueba en modo incógnito/privado
+4. Usa Chrome, Firefox, Safari o Edge actualizado
+5. Desactiva extensiones temporalmente
+
+---
+
+## Problemas del Business Center
+
+### "No se encontró el Business Center"
+
+**Causas:**
+
+1. No has creado un Business Center
+2. No diste acceso al Business Center durante la autorización
+3. El Business Center está en otro país/región
+
+**Soluciones:**
+
+**Solución 1: Crear Business Center**
+1. Ve a [business.tiktok.com](https://business.tiktok.com)
+2. Haz clic en "Crear Business Center"
+3. Completa la información requerida
+4. Espera la confirmación
+
+**Solución 2: Reconectar con todos los permisos**
+1. Desconecta TikTok en SaleAds.ai
+2. Vuelve a conectar
+3. Durante la autorización, asegúrate de seleccionar **TODOS** los Business Centers
+
+---
+
+### "No tengo rol de administrador"
+
+**Causa:** Tu usuario tiene un rol limitado en el Business Center.
+
+**Solución:**
+
+1. Ve a [business.tiktok.com](https://business.tiktok.com)
+2. Ve a **"Usuarios"**
+3. Verifica tu rol actual
+4. Si no eres administrador, contacta al propietario del Business Center
+
+---
+
+## Problemas de Facturación
+
+### "Método de pago rechazado"
+
+**Causas:**
+
+* La tarjeta no está habilitada para compras internacionales
+* Fondos insuficientes
+* El banco bloqueó la transacción ("bank block")
+* La dirección de facturación no coincide con la tarjeta
+
+**Solución:**
+
+1. **Contacta a tu banco:** Explica que vas a hacer pagos recurrentes a "TikTok". Muchos bancos marcan los cargos de TikTok como sospechosos debido a la naturaleza de múltiples cargos pequeños.
+
+2. **Verifica la dirección:** Asegúrate de que la dirección de facturación en TikTok coincida exactamente con la de tu tarjeta.
+
+3. **Intenta con otra tarjeta:** Si es posible, usa una tarjeta de crédito de negocio en lugar de débito personal.
+
+<Callout type="warn" title="El 'Bank Block' de TikTok">
+  Muchos bancos marcan automáticamente los pagos a TikTok como "alto riesgo" porque el patrón de gasto (múltiples cargos pequeños rápidamente) se parece a fraudes de prueba de tarjetas. Es fundamental llamar a tu banco y autorizar explícitamente los pagos a TikTok antes de escalar tu gasto.
+</Callout>
+
+---
+
+### "Las campañas se pausaron por problemas de pago"
+
+**Causa:** Un pago falló (umbral alcanzado pero la tarjeta fue rechazada).
+
+**Consecuencias:**
+* Las campañas se pausan inmediatamente
+* La fase de aprendizaje del algoritmo se reinicia
+* El CPM puede aumentar al reanudar
+
+**Solución:**
+
+1. Ve a [ads.tiktok.com](https://ads.tiktok.com)
+2. Ve a **"Pagos"**
+3. Resuelve el saldo pendiente
+4. Actualiza o agrega un método de pago válido
+5. Espera reactivación (generalmente inmediata)
+
+**Prevención:**
+* Configura un método de pago de respaldo
+* Mantén suficiente saldo/crédito en la tarjeta
+* Comunícate con tu banco antes de escalar el gasto
+
+---
+
+### "No puedo cambiar la moneda"
+
+**Causa:** La moneda se selecciona al crear la cuenta y no se puede cambiar.
+
+**Solución:**
+
+Debes crear una nueva cuenta de TikTok Ads con la moneda correcta:
+1. Crea un nuevo Business Center
+2. Crea una nueva cuenta publicitaria
+3. Selecciona la moneda correcta durante la creación
+4. Configura la nueva cuenta en SaleAds.ai
+
+<Callout type="warn" title="Importante">
+  No puedes transferir campañas ni historial entre cuentas de TikTok Ads. Deberás empezar de cero en la nueva cuenta.
+</Callout>
+
+---
+
+## Problemas del TikTok Pixel
+
+### "El pixel no se dispara"
+
+**Causas:**
+
+* El código no está instalado correctamente
+* El evento no está configurado
+* Conflictos con bloqueadores de anuncios
+
+**Soluciones:**
+
+**Verificar instalación:**
+1. Instala la extensión **TikTok Pixel Helper** (Chrome)
+2. Visita tu sitio web
+3. Verifica que el pixel esté activo
+4. Completa una conversión de prueba
+5. Confirma que el evento se dispara
+
+**Verificar evento:**
+1. En TikTok Ads Manager, ve a **"Activos"** → **"Eventos"**
+2. Verifica que el evento esté configurado
+3. Confirma que el nombre del evento coincide
+
+---
+
+### "Los eventos no aparecen en el dashboard"
+
+**Causas:**
+
+* Retraso normal de reporte (puede tardar hasta 24 horas)
+* Event Match Quality baja
+* El usuario usó un bloqueador de anuncios
+
+**Solución:**
+
+1. **Espera el tiempo de reporte:** Los primeros eventos pueden tardar en aparecer
+2. **Habilita Events API:** Usa el seguimiento server-side para mejorar la captura
+3. **Mejora Event Match Quality:** Asegúrate de enviar datos de usuario encriptados (email, teléfono)
+
+---
+
+### "Event Match Quality baja"
+
+**Causa:** TikTok no puede hacer coincidir los eventos con usuarios de forma efectiva.
+
+**Soluciones:**
+
+1. **Enviar datos de usuario:** Incluye email y teléfono hasheados en los eventos
+2. **Usar Events API:** El seguimiento server-side tiene mejor calidad de coincidencia
+3. **Configurar Advanced Matching:** Habilita el emparejamiento avanzado en la configuración del pixel
+
+---
+
+## Desconectar y Reconectar
+
+Si ninguna solución funciona, puedes desconectar completamente y empezar de nuevo.
+
+### Pasos para Desconectar
+
+1. Ve a **Cuentas Conectadas**
+2. En TikTok, haz clic en **"Editar Configuración"**
+3. Haz clic en **"Desconectar cuenta de TikTok"**
+4. Confirma: **"¿Estás seguro?"** → **"Desconectar"**
+5. Verás: **"Cuenta de TikTok desconectada exitosamente"**
+
+### Después de Desconectar
+
+- Tu cuenta vuelve al estado "No conectado"
+- Debes volver a conectar y configurar todo
+- Las estrategias existentes pueden verse afectadas
+
+---
+
+## Revocar Permisos desde TikTok
+
+Si quieres eliminar completamente el acceso de SaleAds.ai:
+
+1. Ve a [business.tiktok.com](https://business.tiktok.com)
+2. Ve a **"Configuración"** → **"Seguridad"**
+3. Busca aplicaciones de terceros conectadas
+4. Busca **SaleAds** y elimina el acceso
+5. Confirma la eliminación
+
+<Callout type="info" title="Nota">
+  Después de revocar permisos, deberás reconectar desde cero si quieres usar SaleAds.ai nuevamente.
+</Callout>
+
+---
+
+## Verificaciones Generales
+
+Si tienes problemas persistentes con TikTok Ads:
+
+1. **Verifica en TikTok:** Ve a [business.tiktok.com](https://business.tiktok.com) y confirma que puedes acceder
+2. **Prueba otro navegador:** Chrome, Firefox, Safari, Edge
+3. **Limpia el caché:** Borra cookies y caché del navegador
+4. **Modo incógnito:** Prueba en ventana privada
+
+---
+
+## ¿El Problema Persiste?
+
+Si después de intentar todas las soluciones el problema continúa:
+
+1. Toma una captura de pantalla del error
+2. Anota los pasos que realizaste
+3. [Contacta a soporte](/es/docs/solucion-problemas/contactar-soporte) con esta información
+
+### Información Útil para Soporte
+
+- El mensaje de error exacto
+- Tu ID de cuenta de TikTok Ads
+- Cuándo comenzó el problema
+- Navegador y versión que usas
+- Si puedes acceder a [business.tiktok.com](https://business.tiktok.com) normalmente
+
+---
+
+<Callout type="error" title="¿El problema persiste?">
+  [Contactar Soporte →](/es/docs/solucion-problemas/contactar-soporte)
+</Callout>

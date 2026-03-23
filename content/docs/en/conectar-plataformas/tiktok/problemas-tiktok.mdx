@@ -1,0 +1,335 @@
+---
+title: TikTok Ads Troubleshooting
+description: Solutions to common problems when connecting TikTok Ads
+---
+
+This guide covers the most frequent errors when connecting and configuring TikTok Ads in SaleAds.ai.
+
+Don't worry, most are resolved in minutes. I'll explain how to fix them step by step.
+
+---
+
+## Connection Problems
+
+### "Authorization Error"
+
+**Message:** `We couldn't authorize access to your TikTok Ads account. Please try again.`
+
+**Possible causes:**
+
+1. **Permissions not granted:** You didn't accept all requested permissions during the OAuth process
+2. **Session expired:** Your TikTok session expired during the process
+3. **Pop-up blocker:** The authorization window was blocked
+4. **Wrong account:** You signed in with a TikTok account that doesn't have Business Center
+
+**Solutions:**
+
+**Solution 1: Retry with all permissions**
+1. Click **"Retry"**
+2. Make sure to accept ALL permissions TikTok requests
+3. Don't close the pop-up window until you complete the process
+
+**Solution 2: Check pop-ups**
+1. Check if your browser blocked a pop-up window
+2. Allow pop-ups for saleads.ai
+3. Try again
+
+**Solution 3: Verify TikTok account**
+1. Make sure you're signing in with the correct Business account
+2. If you have multiple accounts, sign out of all and use only the correct one
+3. Verify this account has access to Business Center
+
+---
+
+### "No ad accounts found"
+
+**Message:** `We couldn't find any TikTok Ads accounts associated with this account.`
+
+**Causes:**
+
+1. The TikTok account doesn't have a Business Center created
+2. You haven't created an advertising account within TikTok Ads Manager
+3. The advertising account is suspended or pending review
+
+**Solutions:**
+
+**Solution 1: Create Business Center and ad account**
+1. Go to [business.tiktok.com](https://business.tiktok.com)
+2. Create a Business Center
+3. Within Business Center, create a new ad account
+4. Wait for approval (may take up to 24-48 hours)
+5. Return to SaleAds.ai and try connecting again
+
+**Solution 2: Verify account status**
+1. Go to [ads.tiktok.com](https://ads.tiktok.com)
+2. Verify the account is active (not suspended)
+3. If under review, wait for TikTok's approval
+
+---
+
+### "Permission denied"
+
+**Message:** `You don't have sufficient permissions to access this account.`
+
+**Causes:**
+
+1. Your role in Business Center is "Analyst" or "Finance" (you need "Operator" or "Admin")
+2. You don't have access assigned to the specific ad account
+
+**Solution:**
+
+1. Contact the Business Center administrator
+2. Request they assign you the **"Operator"** or **"Admin"** role
+3. Make sure you have access to the specific ad account you want to connect
+
+---
+
+### TikTok window doesn't open
+
+**Causes:**
+- Pop-up blocker active
+- Browser extensions interfering
+- Incompatible browser
+- Third-party cookies disabled
+
+**Solution:**
+1. Disable pop-up blocker for saleads.ai
+2. Enable third-party cookies in your browser
+3. Try in incognito/private mode
+4. Use updated Chrome, Firefox, Safari, or Edge
+5. Disable extensions temporarily
+
+---
+
+## Business Center Issues
+
+### "Business Center not found"
+
+**Causes:**
+
+1. You haven't created a Business Center
+2. You didn't give access to Business Center during authorization
+3. The Business Center is in another country/region
+
+**Solutions:**
+
+**Solution 1: Create Business Center**
+1. Go to [business.tiktok.com](https://business.tiktok.com)
+2. Click "Create Business Center"
+3. Complete the required information
+4. Wait for confirmation
+
+**Solution 2: Reconnect with all permissions**
+1. Disconnect TikTok in SaleAds.ai
+2. Reconnect
+3. During authorization, make sure to select **ALL** Business Centers
+
+---
+
+### "I don't have administrator role"
+
+**Cause:** Your user has a limited role in Business Center.
+
+**Solution:**
+
+1. Go to [business.tiktok.com](https://business.tiktok.com)
+2. Go to **"Users"**
+3. Verify your current role
+4. If you're not an admin, contact the Business Center owner
+
+---
+
+## Billing Problems
+
+### "Payment method declined"
+
+**Causes:**
+
+* Card not enabled for international purchases
+* Insufficient funds
+* Bank blocked the transaction ("bank block")
+* Billing address doesn't match card
+
+**Solution:**
+
+1. **Contact your bank:** Explain that you'll be making recurring payments to "TikTok". Many banks mark TikTok charges as suspicious due to the nature of multiple small rapid charges.
+
+2. **Verify address:** Make sure the billing address in TikTok matches exactly with your card.
+
+3. **Try another card:** If possible, use a business credit card instead of personal debit.
+
+<Callout type="warn" title="TikTok's 'Bank Block'">
+  Many banks automatically mark payments to TikTok as "high risk" or "suspicious" because the spending pattern (multiple small charges in rapid succession when thresholds are hit) resembles card testing fraud.
+
+  **You must call your bank BEFORE scaling and:**
+  1. Inform them you'll make recurring payments to "TikTok"
+  2. Request they explicitly authorize transactions to TikTok
+  3. Confirm your card is enabled for international purchases
+</Callout>
+
+---
+
+### "Campaigns paused due to payment issues"
+
+**Cause:** A payment failed (threshold reached but card was rejected).
+
+**Consequences:**
+* Campaigns pause immediately
+* Algorithm learning phase resets
+* CPM may be higher when resuming
+
+**Solution:**
+
+1. Go to [ads.tiktok.com](https://ads.tiktok.com)
+2. Go to **"Payments"**
+3. Resolve the outstanding balance
+4. Update or add a valid payment method
+5. Wait for reactivation (usually immediate)
+
+**Prevention:**
+* Set up a backup payment method
+* Maintain sufficient balance/credit on the card
+* Communicate with your bank before scaling spend
+
+---
+
+### "Cannot change currency"
+
+**Cause:** Currency is selected when creating the account and cannot be changed.
+
+**Solution:**
+
+You must create a new TikTok Ads account with the correct currency:
+1. Create a new Business Center
+2. Create a new ad account
+3. Select the correct currency during creation
+4. Set up the new account in SaleAds.ai
+
+<Callout type="warn" title="Important">
+  You cannot transfer campaigns or history between TikTok Ads accounts. You'll need to start fresh in the new account.
+</Callout>
+
+---
+
+## TikTok Pixel Issues
+
+### "Pixel not firing"
+
+**Causes:**
+
+* Code not installed correctly
+* Event not configured
+* Conflicts with ad blockers
+
+**Solutions:**
+
+**Verify installation:**
+1. Install **TikTok Pixel Helper** Chrome extension
+2. Visit your website
+3. Verify the pixel is active
+4. Complete a test conversion
+5. Confirm the event fires
+
+**Verify event:**
+1. In TikTok Ads Manager, go to **"Assets"** → **"Events"**
+2. Verify the event is configured
+3. Confirm the event name matches
+
+---
+
+### "Events not appearing in dashboard"
+
+**Causes:**
+
+* Normal reporting delay (may take up to 24 hours)
+* Low Event Match Quality
+* Users with ad blockers
+
+**Solution:**
+
+1. **Wait for reporting time:** First events may take time to appear
+2. **Implement Events API:** Use server-side tracking for better coverage
+3. **Verify with TikTok Pixel Helper**
+
+---
+
+### "Low Event Match Quality"
+
+**Cause:** TikTok cannot effectively match your events with users.
+
+**Solutions:**
+
+1. **Send user data:** Include hashed email and phone in events
+2. **Use Events API:** Server-side tracking significantly improves matching
+3. **Configure Advanced Matching:** Enable advanced matching in pixel settings
+
+---
+
+## Disconnect and Reconnect
+
+If no solution works, you can completely disconnect and start over.
+
+### Steps to Disconnect
+
+1. Go to **Connected Accounts**
+2. In TikTok, click **"Edit Configuration"**
+3. Click **"Disconnect TikTok account"**
+4. Confirm: **"Are you sure?"** → **"Disconnect"**
+5. You'll see: **"TikTok account disconnected successfully"**
+
+### After Disconnecting
+
+- Your account returns to "Not connected" status
+- You must reconnect and configure everything again
+- Existing strategies may be affected
+
+---
+
+## Revoke Permissions from TikTok
+
+If you want to completely remove SaleAds.ai access:
+
+1. Go to [business.tiktok.com](https://business.tiktok.com)
+2. Go to **"Settings"** → **"Security"**
+3. Look for connected third-party applications
+4. Find **SaleAds** and remove access
+5. Confirm the removal
+
+<Callout type="info" title="Note">
+  After revoking permissions, you'll need to reconnect from scratch if you want to use SaleAds.ai again.
+</Callout>
+
+---
+
+## General Verifications
+
+If you have persistent problems with TikTok Ads:
+
+1. **Verify in TikTok:** Go to [business.tiktok.com](https://business.tiktok.com) and confirm you can access
+2. **Try another browser:** Chrome, Firefox, Safari, Edge
+3. **Clear cache:** Clear browser cookies and cache
+4. **Incognito mode:** Try in private window
+
+---
+
+## Still Having Issues?
+
+If after trying all solutions the problem continues:
+
+1. Take a screenshot of the error
+2. Note the steps you took
+3. [Contact support](/en/docs/solucion-problemas/contactar-soporte) with this information
+
+### Useful Information for Support
+
+- The exact error message
+- Your TikTok Ads account ID
+- When the problem started
+- Browser and version you use
+- If you can access [business.tiktok.com](https://business.tiktok.com) normally
+
+---
+
+<Callout type="error" title="Still having issues?">
+  [Contact Support →](/en/docs/solucion-problemas/contactar-soporte)
+</Callout>

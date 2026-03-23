@@ -3,97 +3,209 @@ title: Connect Google Ads
 description: How to connect your Google Ads account to SaleAds.ai
 ---
 
-Connecting your Google Ads account allows you to launch and manage search and display advertising campaigns directly from SaleAds.ai. This step is essential for reaching people who are already actively searching for products or services like yours on Google. Once connected, I take care of coordinating the publication and optimization of your ads without you having to log into the Google Ads panel.
+Connecting your Google Ads account allows you to launch and manage search and display ad campaigns directly from SaleAds.ai. This step is fundamental to reaching people who are actively searching for products or services like yours on Google.
 
-The connection process is quick and secure. You just need to authorize SaleAds.ai through your Google account, and in less than two minutes you will be ready to launch campaigns.
+Once connected, I take care of coordinating the publication and optimization of your ads without you having to enter the Google Ads panel. **From idea to campaign in minutes.**
 
-<GoogleDriveEmbed fileId="1hd2VEjaQzOiR4wdzQniLZ0QAKk5VGHKc" title="How to connect your Google account?" />
+<Callout type="warn" title="Important">
+  This is the most critical point of the process. Take your time and follow each step carefully.
+</Callout>
+
+---
 
 ## Prerequisites
 
-Before connecting your Google Ads account, make sure you have everything ready so the process is smooth and uninterrupted:
+Before starting, make sure you have:
 
-- **An active Google Ads account** -- If you don't have one yet, you can create it for free at [ads.google.com](https://ads.google.com). You need to have completed the initial account setup (country, currency, time zone).
-- **Administrator access to the account** -- You must be the owner or have administrator permissions on the Google Ads account you want to connect. Read-only or standard user permissions are not sufficient.
-- **An active SaleAds.ai account** -- You need an active plan (PRO, BUSINESS, or AGENCY) to connect advertising platforms.
+- An active and configured Google Ads account
+- Administrator access to the account
+- A valid payment method configured
 
-<Callout type="warn" title="Important">
-  If you use Google Ads through a manager account (MCC), make sure to sign in with the email address that has direct access to the advertising account you want to connect.
-</Callout>
+> If you don't have these requirements yet, check [Prerequisites](requisitos-previos-google) first.
 
 ---
 
-## Steps to Connect
+## Current Connection Status
 
-The authorization process uses Google's secure OAuth system. At no point do we share or store your password.
+On the Connected Accounts screen you'll see one of these statuses:
+
+| Status | Meaning | Action Required |
+|--------|---------|-----------------|
+| **Not connected** | You haven't linked your Google Ads account | Click "Connect Account" |
+| **Connected - Configuration pending** | Connected Google but need to select account | Complete configuration |
+| **Configured** | Ready to launch strategies | None |
+
+---
+
+## Connection Process
+
+<GoogleDriveEmbed fileId="1hd2VEjaQzOiR4wdzQniLZ0QAKk5VGHKc" title="How to connect your Google account?" />
 
 <Steps>
 <Step>
-Go to **Settings** in the SaleAds.ai dashboard. You will find it in the left side menu, in the Settings section.
+### Access Settings
+
+1. In the Dashboard, go to the side menu
+2. Click **"Connected Accounts"**
+3. You'll see the **Google Ads** section with the connect button
 </Step>
+
 <Step>
-Select **Connect Platforms** and then click **Google Ads**. You will see the connection button next to the Google logo.
+### Start Connection
+
+1. Click the **"Connect with Google"** button
+2. A Google authentication pop-up window will open
+
+![Google account selection](/images/screenshots/02-conectar-plataformas/google-account-selection.png)
+*Figure 3.1: Google account selection screen to continue to SaleAds.ai*
+
+<Callout type="info" title="Note">
+  If you use a pop-up blocker, allow pop-ups from SaleAds.ai
+</Callout>
 </Step>
+
 <Step>
-Click **Authorize with Google**. This will open a pop-up window from Google's authentication system. If your browser blocks pop-ups, make sure to allow them for SaleAds.ai.
+### Sign in to Google
+
+In the pop-up window:
+
+1. Sign in with your Google account associated with Google Ads
+2. If you have multiple Google accounts, select the correct one
+
+<Callout type="info" title="Tip">
+  Use the Google account that has administrator access to your Google Ads account.
+</Callout>
 </Step>
+
 <Step>
-Sign in with your Google account. Use the same email address associated with your Google Ads account. If you have multiple Google accounts, select the correct one.
+### Authorize Permissions
+
+Google will ask you to authorize several permissions. Here's what I need them for:
+
+| Permission | What I use it for |
+|------------|-------------------|
+| **View your Google Ads account** | Access your campaigns and metrics |
+| **Manage campaigns** | Create, edit, and pause campaigns on your behalf |
+| **View statistics** | Show performance in your dashboard |
+| **Manage budgets** | Set budgets according to your strategy |
+
+1. Review the requested permissions
+2. Click **"Continue"** or **"Accept"** on each screen
+3. **Important:** Select **ALL** Google Ads accounts you want to give access to
+
+![Google permissions detail](/images/screenshots/02-conectar-plataformas/google-permissions-detail.png)
+*Figure 3.2: Permissions required to manage Google Ads campaigns*
+
+> **Warning:** If you don't select all assets, you won't be able to use them in SaleAds.ai later.
 </Step>
+
 <Step>
-Accept the requested permissions. Google will show you exactly what permissions SaleAds.ai needs. These include the ability to manage your advertising campaigns. All permissions are necessary for the platform to function correctly.
-</Step>
-<Step>
-Select your Google Ads account from the list. If you have multiple advertising accounts, choose the one you want to use with SaleAds.ai. You can connect additional accounts later.
+### Confirm Connection
+
+Once authorized:
+
+1. The pop-up window will close automatically
+2. You'll return to SaleAds.ai
+3. You'll see the message: **"Successfully Connected!"**
+
+![Google OAuth confirmation](/images/screenshots/02-conectar-plataformas/google-oauth-confirm.png)
+*Figure 3.3: Final authorization confirmation with Google*
 </Step>
 </Steps>
 
-Once these steps are completed, you will see a confirmation message in your dashboard. The account will be linked and ready to launch campaigns. **From idea to campaign in minutes.**
+---
+
+## Account Types and Hierarchy
+
+It's important to understand the difference between account types:
+
+### Individual Account
+- A single Google Ads account
+- Directly linked to your Google account
+- Ideal for businesses with a single brand
+
+### MCC Account (Manager)
+- "Umbrella" account that manages multiple accounts
+- You can view and select child accounts
+- Ideal for agencies or companies with multiple brands
+
+<Callout type="info" title="Key difference">
+  If you connect an MCC account, you'll see all accounts it manages. If you connect an individual account, you'll only see that account.
+</Callout>
 
 ---
 
-## Permissions SaleAds.ai Requests
+## After Connecting
 
-So you know exactly what you are authorizing, these are the permissions I need from your Google account:
+Once connected, your status will change to **"Connected - Configuration pending"**. This means you need to complete configuration by selecting:
 
-| Permission | What I use it for |
-| --- | --- |
-| **Manage campaigns** | Create, edit, and pause campaigns on your behalf |
-| **Read metrics** | Show performance and statistics in your dashboard |
-| **Manage budgets** | Configure and adjust budgets according to your strategy |
+1. **Google Ads Account** - Required (especially if you have MCC)
+2. **Billing Configuration** - Verify payment method
+3. **Conversion Tracking** - Optional but recommended
 
-**You have full control.** You can revoke these permissions at any time from your Google account settings.
+<Callout type="info" title="Next step">
+  [Select Google Ads Account →](seleccionar-cuenta-google)
+</Callout>
 
 ---
 
-## Common Errors
+## Troubleshooting
 
-### My Google Ads account doesn't appear
+### "My Google Ads account doesn't appear"
 
 **Possible causes:**
 - The Google account you signed in with doesn't have administrator access to Google Ads
-- Your Google Ads account is not fully set up (missing payment method or initial configuration)
+- Your Google Ads account isn't fully configured (missing payment method)
 
-**Solution:** Verify that the Google account you used has administrator access to Google Ads. If you have multiple Google accounts, try with another one.
+**Solution:** Verify the Google account you used has administrator access to Google Ads. If you have multiple Google accounts, try with another one.
 
-### Permission error
+### "Permission error"
 
 **Possible causes:**
 - You didn't accept all permissions during the authorization process
-- Your browser blocked the pop-up window before completing authorization
+- Your browser blocked the pop-up before completing authorization
 
-**Solution:** Make sure to accept all permissions when Google requests them. If the problem persists, try from a different browser or in incognito mode.
+**Solution:** Make sure to accept all permissions when Google requests them. If the problem persists, try from a different browser or incognito mode.
 
-### The connection was interrupted
+### "Account already linked"
+
+**Cause:** The Google Ads account is already being managed by another MCC or is connected to another SaleAds account.
+
+**Solution:** The account must be unlinked from the previous MCC before it can be connected. Contact the previous administrator.
+
+### Connection interrupted
 
 **Possible causes:**
 - Unstable internet connection during the process
-- The authorization window timed out
+- Timeout in the authorization window
 
-**Solution:** Don't worry, simply repeat the process from step 1. Your previous data is not affected.
+**Solution:** Don't worry, simply repeat the process from step 1. Your previous data isn't affected.
 
 ---
 
-<Callout type="info" title="Next Step">
-  With Google Ads connected, you can now explore the available strategies for search and display campaigns. If you haven't connected Meta Ads yet, I recommend doing so as well to maximize your reach: [Connect Meta Ads](/en/docs/conectar-plataformas/meta-ads/requisitos-previos).
-</Callout>
+## Permissions We Request
+
+These are all the permissions we need and why:
+
+| Permission | Use |
+|------------|-----|
+| `AdWords API` | Manage campaigns and budgets |
+| `View account information` | Show performance data |
+| `Manage campaigns` | Create and modify campaigns |
+| `View conversions` | Optimize based on results |
+
+> **Privacy:** I'll never create campaigns without your explicit authorization. I only publish ads when you click "Launch". You have total control.
+
+---
+
+## Next Steps
+
+Once successfully connected, you must complete the configuration:
+
+1. [Select Google Ads Account](seleccionar-cuenta-google) - Required next step
+2. [Configure Billing](configurar-facturacion) - Verify payment method
+3. [Configure Conversions](conversiones-seguimiento) - Track results (optional)
+
+---
+
+> **Having problems?** See the complete [Google Ads Troubleshooting Guide](problemas-google)

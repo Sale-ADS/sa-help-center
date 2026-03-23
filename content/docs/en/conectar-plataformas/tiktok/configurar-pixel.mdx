@@ -1,0 +1,293 @@
+---
+title: Configure TikTok Pixel
+description: Set up conversion tracking with TikTok Pixel
+---
+
+TikTok Pixel lets you know what happens after users interact with your ads: whether they bought a product, signed up, or completed any valuable action on your website. This information is essential for optimizing your campaigns and maximizing your return on investment on TikTok.
+
+<Callout type="info" title="Note">
+  This section is optional but highly recommended. You can set up the Pixel now or later.
+</Callout>
+
+---
+
+## What is TikTok Pixel?
+
+TikTok Pixel is a piece of JavaScript code you install on your website to track visitor behavior and attribute actions to your TikTok advertising campaigns.
+
+### Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **Measure ROI** | Know exactly how much each conversion costs you |
+| **Optimize** | Let TikTok automatically optimize to get more conversions |
+| **Retargeting** | Create audiences of users who visited your site |
+| **Attribution** | Understand which ads and audiences generate results |
+
+---
+
+## Create a TikTok Pixel
+
+### Step 1: Create in TikTok Ads Manager
+
+1. Go to [ads.tiktok.com](https://ads.tiktok.com)
+2. Click **"Assets"** → **"Events"**
+3. Click **"Connect data source"**
+4. Select **"Web"**
+5. Enter your website URL
+6. Choose how to connect:
+   - **Partner integration** (Shopify, WooCommerce, etc.)
+   - **Google Tag Manager**
+   - **Manual setup**
+
+### Step 2: Configure the Pixel
+
+**Name:** Use something descriptive (e.g., "My Store Pixel")
+
+<Callout type="info" title="Pixel ID">
+  The Pixel ID is a unique number that identifies your pixel. You'll need it for installation. You can find it in the Events section of TikTok Ads Manager.
+</Callout>
+
+---
+
+## Installation Methods
+
+### Method 1: Partner Integration (Recommended for E-commerce)
+
+If you use Shopify, WooCommerce, BigCommerce, or another popular platform:
+
+#### For Shopify:
+
+1. In your Shopify admin, go to **"Apps"**
+2. Search for **"TikTok"** in the Shopify App Store
+3. Install the official TikTok app
+4. Connect your TikTok Ads Manager account
+5. Select your existing pixel or create a new one
+6. The integration automatically installs the pixel and standard events
+
+**Automatic events:**
+- PageView
+- ViewContent
+- AddToCart
+- InitiateCheckout
+- Purchase / CompletePayment
+
+#### For WooCommerce:
+
+1. In WordPress, go to **"Plugins"** → **"Add New"**
+2. Search for **"TikTok for WooCommerce"**
+3. Install and activate the official plugin
+4. Connect your TikTok Ads Manager account
+5. Select your pixel
+6. Enable automatic event tracking
+
+### Method 2: Google Tag Manager (Recommended for Flexibility)
+
+This method gives you more control and is easy to maintain:
+
+**Step 1: Create the TikTok Tag**
+
+1. Go to [tagmanager.google.com](https://tagmanager.google.com)
+2. Create a new tag
+3. Select **"Custom HTML"**
+4. Paste TikTok's base pixel code
+5. Set trigger to "All pages"
+6. Save and publish
+
+**Step 2: Configure Events**
+
+For each event you want to track (purchase, signup, etc.):
+
+1. Create a new tag
+2. Use the corresponding event code
+3. Configure the specific trigger (URL, clicked element, etc.)
+
+### Method 3: Manual Installation (For Developers)
+
+If you prefer to install the code directly:
+
+**Step 1: Base Code**
+
+Add this code in the `<head>` of ALL pages:
+
+```html
+<!-- TikTok Pixel Code -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;
+  var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+  ttq.setAndDefer=function(t,t){t[t]=function(){t.push([t].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+  ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+  ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+  var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;
+  var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+  ttq.load('YOUR_PIXEL_ID');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+```
+
+**Step 2: Specific Events**
+
+To track conversions, add the event code on corresponding pages:
+
+```html
+<script>
+  ttq.track('Purchase', {
+    content_id: '12345',
+    content_type: 'product',
+    value: 50.00,
+    currency: 'USD'
+  });
+</script>
+```
+
+<Callout type="info" title="Event Name Update">
+As of May 2025, TikTok updated some event names to align with industry standards:
+- `CompletePayment` → **`Purchase`** (current recommended name)
+- `SubmitForm` → **`Lead`**
+
+Existing setups continue to work, but TikTok recommends using the new names for new pixel setups.
+</Callout>
+
+---
+
+## TikTok Standard Events
+
+Configure these events to measure performance:
+
+| Event | When to use | Example |
+|-------|-------------|---------|
+| **PageView** | On all pages | Any page load |
+| **ViewContent** | View product detail | Product page |
+| **AddToCart** | Add to cart | "Add to cart" button |
+| **InitiateCheckout** | Start payment process | Checkout page |
+| **CompletePayment** | Purchase completed | Confirmation page |
+| **Purchase** | Purchase completed (new name) | Confirmation page |
+| **Contact** | Contact form | Form submission |
+| **SubmitForm** | Any form | Registration, subscription |
+| **Search** | Site search | Search results |
+
+---
+
+## Visual Event Builder
+
+TikTok offers a no-code tool to configure events:
+
+1. In TikTok Ads Manager, go to **"Assets"** → **"Events"**
+2. Select your pixel
+3. Click **"Set up events"**
+4. Choose **"Visual Event Builder"**
+5. TikTok will load your website
+6. Click on elements you want to track (buttons, links)
+7. Assign the corresponding event type
+
+<Callout type="info" title="Advantage">
+  The Visual Builder requires no code and allows configuring events directly from your live website.
+</Callout>
+
+---
+
+## Events API (Server-Side Tracking)
+
+For more robust tracking (resistant to ad blockers), TikTok recommends using Events API along with the Pixel:
+
+### Benefits
+
+- Better event match quality
+- Resistant to ad blockers
+- Captures conversions browser pixel might miss
+
+### Implementation
+
+Events API requires server-side technical configuration. Options:
+
+1. **Google Tag Manager Server-Side**: Configure a server-side container
+2. **TikTok Gateway**: TikTok-hosted solution
+3. **Direct Integration**: Backend development to send events
+
+<Callout type="info" title="TikTok Recommendation">
+  TikTok recommends using BOTH: Pixel (browser) + Events API (server) for the most complete coverage. This is called "redundant tracking".
+</Callout>
+
+---
+
+## Test TikTok Pixel
+
+### TikTok Pixel Helper (Chrome Extension)
+
+1. Install **TikTok Pixel Helper** from Chrome Web Store
+2. Visit your website
+3. The extension will show:
+   - If the pixel is active
+   - What events fire
+   - Configuration errors
+
+### Test Mode in TikTok
+
+1. In TikTok Ads Manager, go to **"Assets"** → **"Events"**
+2. Select your pixel
+3. Go to the **"Test events"** tab
+4. Enter your site URL
+5. Complete actions on your site
+6. Verify events appear in the test panel
+
+---
+
+## Event Match Quality
+
+This metric indicates how well TikTok can match your events with users:
+
+| Score | Meaning |
+|-------|---------|
+| **Excellent (8-10)** | High match, optimal optimization |
+| **Good (5-7)** | Acceptable match |
+| **Needs improvement (&lt;5)** | Insufficient data to optimize well |
+
+### How to Improve
+
+1. **Send user data:** Include hashed email and phone
+2. **Use Events API:** Significantly improves matching
+3. **Enable Advanced Matching:** Configure advanced matching in settings
+
+---
+
+## Troubleshooting
+
+### "Pixel not firing"
+
+**Verify:**
+1. Is the code in the `<head>` of all pages?
+2. Is the Pixel ID correct?
+3. Are there JavaScript errors in the console?
+
+### "Events not appearing"
+
+**Causes:**
+- Normal reporting delay (may take up to 24 hours)
+- Low Event Match Quality
+- Users with ad blockers
+
+**Solution:**
+1. Wait 24 hours
+2. Implement Events API for better coverage
+3. Verify with TikTok Pixel Helper
+
+---
+
+## Complete Configuration
+
+Once pixel is configured:
+
+1. Review the configuration summary in **Connected Accounts**
+2. Verify TikTok shows **"Configured"** status
+3. You're ready to create TikTok Ads strategies!
+
+---
+
+<Callout type="info" title="Next step">
+  [Configure Your Business →](/en/docs/configurar-negocio/brief-audio)
+</Callout>

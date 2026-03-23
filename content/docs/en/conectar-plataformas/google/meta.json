@@ -2,6 +2,11 @@
   "title": "Google Ads",
   "icon": "Google",
   "pages": [
-    "conectar-google"
+    "requisitos-previos-google",
+    "conectar-google",
+    "seleccionar-cuenta-google",
+    "configurar-facturacion",
+    "conversiones-seguimiento",
+    "problemas-google"
   ]
 }

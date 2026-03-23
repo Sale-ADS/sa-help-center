@@ -2,10 +2,8 @@
   "title": "Configure Business",
   "icon": "Building2",
   "pages": [
-    "informacion-del-negocio",
-    "redes-sociales",
-    "ubicacion-audiencia",
     "brief-audio",
+    "redes-sociales",
     "revisar-brief"
   ]
 }

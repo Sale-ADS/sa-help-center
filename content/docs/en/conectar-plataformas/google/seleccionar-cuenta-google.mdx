@@ -1,0 +1,232 @@
+---
+title: Select Account
+description: How to select your Google Ads account in SaleAds.ai
+---
+
+After connecting your Google account, you must select which specific Google Ads account you'll use for your campaigns. This step is crucial because it determines where your ads will be published and from where they will be billed.
+
+**You have total control** over which account to use for each business in SaleAds.ai.
+
+---
+
+## Why is Selection Necessary?
+
+### Scenario 1: Individual Account
+If you connected an individual Google account with a single Google Ads account, you'll simply confirm that account.
+
+### Scenario 2: MCC Account (Manager)
+If you connected an MCC account, you'll see **all accounts** you manage. You must choose which one to use for this specific business.
+
+<Callout type="warn" title="Important">
+  Each business in SaleAds.ai links to a single Google Ads account. This decision is important because it determines where your campaigns will be billed.
+</Callout>
+
+---
+
+## Access the Configuration
+
+After connecting to Google, you'll automatically see the Google Ads configuration screen. If you don't see it:
+
+1. Go to **Connected Accounts**
+2. In the Google Ads section, click **"Complete Configuration"**
+
+---
+
+## Step 1: View Available Accounts
+
+### If You Have an Individual Account
+
+You'll see a single account in the list:
+
+| Information | Description |
+|-------------|-------------|
+| **Name** | The name you gave your Google Ads account |
+| **ID** | Account number (format: XXX-XXX-XXXX) |
+| **Status** | Active/Inactive |
+
+### If You Have an MCC Account
+
+You'll see all accounts managed by your MCC:
+
+| Information | Description |
+|-------------|-------------|
+| **Name** | Name of each client account |
+| **ID** | ID of each account (XXX-XXX-XXXX) |
+| **Level** | Hierarchy if there are sub-MCCs |
+
+<Callout type="info" title="Tip">
+  If you have many accounts, use the search to filter by name or account ID.
+</Callout>
+
+---
+
+## Step 2: Select the Correct Account
+
+### For Individual Businesses
+
+1. Identify your business account
+2. Verify the name and ID are correct
+3. Click to select it
+4. The account will be highlighted
+
+### For Agencies with Multiple Clients
+
+1. Identify the specific client's account
+2. Make sure you select the correct account (not the wrong client)
+3. Verify the account has a payment method configured
+4. Click to select
+
+---
+
+## Account Verification
+
+Before confirming, verify:
+
+### ✅ Account Status
+- The account must be **Active**
+- It must not have billing restrictions
+- It must not be suspended for Google policy violations
+
+### ✅ Administrator Access
+- You must have administrator permissions
+- Verify you can create campaigns in Google Ads directly
+
+### ✅ Payment Method
+- The account must have a valid payment method
+- Verify there are no pending or rejected payments
+
+---
+
+## Can't Find My Account
+
+Don't worry. There are several common causes and all have solutions:
+
+### Possible Cause 1: You didn't give access during connection
+
+When you connect Google with SaleAds, an authorization screen appears where you must select which accounts you give access to. If you omitted any, it won't appear in the list.
+
+**Solution:**
+
+1. Go back to the Connected Accounts screen
+2. Disconnect the Google Ads account
+3. Reconnect
+4. During Google authorization, make sure to select **ALL** accounts
+
+### Possible Cause 2: Account at deep MCC level
+
+If you use an MCC with a complex hierarchy (more than 2 levels), some accounts may not appear.
+
+**Solution:**
+
+1. Verify the hierarchy at [ads.google.com](https://ads.google.com)
+2. Consider moving the account to a higher level
+3. Or connect directly with the individual account instead of the MCC
+
+### Possible Cause 3: Account is inactive
+
+Canceled or suspended accounts don't appear in the list.
+
+**Solution:**
+
+1. Go to [ads.google.com](https://ads.google.com) and verify the status
+2. If it's canceled, reactivate the account
+3. If it's suspended, resolve the policy issues
+
+---
+
+## Selecting Between Multiple Accounts
+
+If you have several accounts available (common in agencies):
+
+### Use the Search
+
+If you have many accounts:
+
+1. Use the **"Search accounts..."** field
+2. Type part of the name or ID
+3. The list will filter automatically
+
+### MCC Hierarchy View
+
+If you have sub-MCCs:
+
+1. Expand the main MCC to see child accounts
+2. Navigate through hierarchy levels
+3. Select the specific account you need
+
+<Callout type="warn" title="Hierarchy limit">
+  Google Ads allows up to 6 hierarchy levels in MCCs. Deeper accounts may not be accessible.
+</Callout>
+
+---
+
+## Confirm Selection
+
+Once you've selected the correct account, review and proceed:
+
+1. Verify the name and ID are correct
+2. Verify the status is "Active"
+3. Click **"Next"**
+4. You'll proceed to billing configuration
+
+---
+
+## Change Account Later
+
+If you need to change your Google Ads account later, you can, but keep in mind the implications:
+
+1. Go to **Connected Accounts**
+2. Click **"Edit Configuration"**
+3. You can select a different account
+
+> **Warning:** Changing the Google Ads account affects existing campaigns. Campaigns in progress will be paused in the previous account and you'll need to recreate them in the new account.
+
+---
+
+## Common Errors
+
+### "No Google Ads accounts found"
+
+**Message:** `We couldn't find any Google Ads accounts in your Google account.`
+
+**Possible causes:**
+
+1. You don't have a Google Ads account created
+2. You didn't give access during authorization
+3. Temporary connection problem with Google
+
+**Solution:**
+
+1. Verify you have a Google Ads account at [ads.google.com](https://ads.google.com)
+2. If you don't, create one (it's free)
+3. Disconnect and reconnect Google in SaleAds.ai
+
+### "Error loading accounts"
+
+**Cause:** Temporary communication problem with Google Ads API.
+
+**Solution:**
+
+1. Click **"Retry"**
+2. Wait a few seconds and try again
+3. If it persists, try in 5-10 minutes
+
+### "Account not eligible"
+
+**Cause:** The account has restrictions or doesn't meet requirements.
+
+**Solutions:**
+
+- Verify the account isn't suspended
+- Confirm it has a payment method configured
+- Make sure you have administrator permissions
+
+---
+
+## Next Step
+
+Now that you've selected your Google Ads account, the next step is to verify billing configuration:
+
+<Callout type="info" title="Next">
+  [Configure Billing →](configurar-facturacion)
+</Callout>

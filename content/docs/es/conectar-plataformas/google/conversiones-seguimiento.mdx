@@ -1,0 +1,290 @@
+---
+title: Seguimiento de Conversiones
+description: Configura el seguimiento de conversiones para medir resultados
+---
+
+El seguimiento de conversiones te permite saber qué sucede después de que los usuarios interactúan con tus anuncios: si compraron un producto, se registraron, llamaron a tu negocio o descargaron tu app. Esta información es fundamental para optimizar tus campañas y maximizar tu retorno de inversión.
+
+<Callout type="info" title="Nota">
+  Esta sección es opcional pero altamente recomendada. Puedes configurar las conversiones ahora o más adelante.
+</Callout>
+
+---
+
+## ¿Qué es el Seguimiento de Conversiones?
+
+Las conversiones son acciones valiosas que los usuarios realizan en tu sitio web después de hacer clic en tu anuncio. Ejemplos comunes:
+
+- Compra de un producto
+- Envío de formulario de contacto
+- Registro en newsletter
+- Llamada telefónica
+- Descarga de app
+
+### Beneficios
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| **Medir ROI** | Saber exactamente cuánto te cuesta cada conversión |
+| **Optimizar** | Permitir que Google optimice automáticamente para obtener más conversiones |
+| **Atribución** | Entender qué palabras clave y anuncios generan resultados |
+| **Remarketing** | Crear audiencias de usuarios que ya interactuaron contigo |
+
+---
+
+## Tipos de Conversiones
+
+Google Ads permite rastrear diferentes tipos de conversiones:
+
+### Conversiones en Sitio Web
+
+Acciones que ocurren en tu sitio web:
+- Compras
+- Registros
+- Envíos de formulario
+- Visitas a páginas clave
+
+### Llamadas
+
+- Llamadas desde anuncios (extensiones de llamada)
+- Llamadas desde tu sitio web
+- Clics en números de teléfono en móviles
+
+### App Móvil
+
+- Instalaciones de app
+- Acciones dentro de la app
+- Compras in-app
+
+### Importadas
+
+- Conversiones offline (CRM, ventas telefónicas)
+- Importadas desde GA4 u otras fuentes
+
+---
+
+## Crear una Acción de Conversión
+
+### Paso 1: Crear en Google Ads
+
+1. Ve a [ads.google.com](https://ads.google.com)
+2. Haz clic en **Herramientas** (⚙️) → **Conversiones**
+3. Haz clic en **"Nueva acción de conversión"**
+4. Selecciona **"Sitio web"**
+
+### Paso 2: Configurar la Conversión
+
+**Nombre:** Usa algo descriptivo (ej: "Compra", "Registro", "Contacto")
+
+**Categoría:**
+- Compra
+- Registro
+- Prospecto
+- Suscripción
+- Visita a página clave
+- Otro
+
+**Valor:**
+- **Mismo valor:** Cada conversión vale lo mismo (ej: $50)
+- **Diferentes valores:** El valor varía (ej: compras de e-commerce)
+
+**Conteo:**
+- **Una:** Cuenta solo una conversión por clic (ideal para leads)
+- **Cada una:** Cuenta todas las conversiones (ideal para compras)
+
+**Ventana de conversión:**
+- Cuánto tiempo después del clic cuenta la conversión
+- Opciones: 1 día a 90 días (30 días es lo más común)
+
+---
+
+## Instalar el Código de Seguimiento
+
+Hay dos métodos principales para instalar el seguimiento:
+
+### Método 1: Google Tag Manager (Recomendado)
+
+Este es el método más flexible y fácil de mantener.
+
+**Paso 1: Crear Google Tag**
+
+1. Ve a [tagmanager.google.com](https://tagmanager.google.com)
+2. Crea un nuevo tag
+3. Selecciona **"Google Tag"**
+4. Ingresa tu ID de Google Ads (formato: AW-XXXXXXXXX)
+5. Configura el disparador en "Todas las páginas"
+6. Guarda y publica
+
+**Paso 2: Crear Tag de Conversión**
+
+1. Crea otro tag
+2. Selecciona **"Seguimiento de conversiones de Google Ads"**
+3. Ingresa:
+   - **ID de conversión:** Tu ID de cuenta (AW-XXXXXXXXX)
+   - **Etiqueta de conversión:** El código único de esta conversión
+4. Configura el disparador (cuándo debe activarse):
+   - Página de confirmación (/gracias, /thank-you)
+   - Evento personalizado (formulario enviado)
+   - Transacción completada
+
+**Paso 3: Probar**
+
+1. Usa el modo **Vista previa** de GTM
+2. Completa una conversión de prueba
+3. Verifica que el tag se dispara correctamente
+4. Publica los cambios
+
+### Método 2: Instalación Directa (gtag.js)
+
+Si no usas Google Tag Manager, puedes instalar el código directamente:
+
+**Paso 1: Google Tag Global**
+
+Agrega este código en el `<head>` de TODAS las páginas:
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXX');
+</script>
+```
+
+**Paso 2: Evento de Conversión**
+
+En la página de confirmación (después de la conversión), agrega:
+
+```html
+<script>
+  gtag('event', 'conversion', {
+    'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYY',
+    'value': 25.0,  // Valor de la conversión
+    'currency': 'USD',
+    'transaction_id': '12345'  // ID único de transacción
+  });
+</script>
+```
+
+---
+
+## Conversiones Mejoradas
+
+Las conversiones mejoradas mejoran la precisión del seguimiento enviando datos adicionales de forma segura y privada.
+
+### Beneficios
+
+- Mejor atribución cuando hay restricciones de cookies
+- Recuperación de conversiones que de otro modo se perderían
+- Mejora en la optimización de pujas automáticas
+
+### Configurar
+
+1. En Google Ads, ve a **Conversiones** → **Configuración**
+2. Activa **"Conversiones mejoradas"**
+3. Elige el método:
+   - **Detección automática:** Google detecta los datos
+   - **Manual:** Configuras los datos a través de GTM
+
+---
+
+## Probar el Seguimiento
+
+### Google Tag Assistant
+
+Extensión de Chrome para verificar que los tags funcionan:
+
+1. Instala **Google Tag Assistant** desde Chrome Web Store
+2. Actívalo en tu sitio web
+3. Verifica que el Google Tag (AW-XXXXX) esté instalado
+4. Completa una conversión de prueba
+5. Confirma que el tag de conversión se dispara
+
+### Modo de Prueba en GTM
+
+1. En GTM, haz clic en **"Vista previa"**
+2. Ingresa la URL de tu sitio
+3. Completa una conversión
+4. En el panel de depuración, verifica:
+   - Que el tag de Google se carga
+   - Que el tag de conversión se dispara en la página correcta
+
+---
+
+## Conversiones Primarias vs. Secundarias
+
+### Conversiones Primarias
+
+Son tus objetivos principales de negocio. Google optimiza tus campañas para obtener más de estas:
+- Compras
+- Registros
+- Solicitudes de presupuesto
+
+### Conversiones Secundarias
+
+Se registran pero no afectan la optimización:
+- Visitas a página "Acerca de"
+- Descargas de recursos
+- Tiempo en sitio
+
+<Callout type="info" title="Configuración">
+  En Google Ads, ve a Conversiones y marca cada acción como "Primaria" o "Secundaria" según su importancia para tu negocio.
+</Callout>
+
+---
+
+## Solución de Problemas
+
+### "El tag no se dispara"
+
+**Verificar:**
+1. ¿El Google Tag está en todas las páginas?
+2. ¿El disparador está configurado correctamente?
+3. ¿Hay errores de JavaScript en la consola?
+
+### "Las conversiones no aparecen"
+
+**Causas:**
+- Retraso normal: 24-48 horas para la primera conversión
+- El tag no está instalado correctamente
+- Los usuarios usan bloqueadores de anuncios
+
+**Solución:**
+1. Verifica instalación con Google Tag Assistant
+2. Espera 48 horas
+3. Habilita conversiones mejoradas
+
+### "Discrepancia con GA4"
+
+Es normal ver diferencias entre Google Ads y GA4:
+- Diferentes modelos de atribución
+- Diferentes ventanas de conversión
+- Google Ads usa último clic, GA4 usa datos-driven
+
+---
+
+## Verificar Estado en SaleAds.ai
+
+Una vez configurado el seguimiento, puedes ver las conversiones en tu dashboard de SaleAds.ai:
+
+1. Ve a **Estrategias**
+2. Selecciona una estrategia de Google Ads
+3. Verás las métricas de conversión en el panel de análisis
+
+---
+
+## Completar Configuración
+
+Una vez configurados los elementos que necesitas:
+
+1. Revisa el resumen de configuración en **Cuentas Conectadas**
+2. Verifica que Google Ads muestre estado **"Configurado"**
+3. ¡Estás listo para crear estrategias de Google Ads!
+
+---
+
+<Callout type="info" title="Siguiente paso">
+  [Configurar tu Negocio →](/es/docs/configurar-negocio/brief-audio)
+</Callout>

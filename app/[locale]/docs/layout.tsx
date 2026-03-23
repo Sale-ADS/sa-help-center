@@ -1,6 +1,8 @@
 import { getSource } from '@/lib/source';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { ReactNode } from 'react';
+import { AIAssistant } from '@/components/ai-assistant';
+import { DocsNavBrand } from '@/components/docs-nav-brand';
 
 export default async function Layout({
   children,
@@ -14,10 +16,11 @@ export default async function Layout({
   return (
     <DocsLayout
       tree={source.pageTree}
-      nav={{ title: locale === 'en' ? 'SaleAds.ai Help Center' : 'Centro de Ayuda SaleAds.ai' }}
+      nav={{ title: <DocsNavBrand /> }}
       themeSwitch={{ enabled: false }}
     >
       {children}
+      <AIAssistant locale={locale} />
     </DocsLayout>
   );
 }

@@ -1,5 +1,6 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { PreviewCard } from '@/components/preview-card';
 import {
   UserPlus,
   Link2,
@@ -17,6 +18,7 @@ import type { MDXComponents } from 'mdx/types';
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
+    PreviewCard,
     Steps,
     Step,
     UserPlus,

@@ -2,6 +2,11 @@
   "title": "TikTok",
   "icon": "TikTok",
   "pages": [
-    "conectar-tiktok"
+    "requisitos-previos-tiktok",
+    "conectar-tiktok",
+    "seleccionar-business-center",
+    "configurar-facturacion",
+    "configurar-pixel",
+    "problemas-tiktok"
   ]
 }

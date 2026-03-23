@@ -1,0 +1,321 @@
+---
+title: Solución de Problemas de Google Ads
+description: Soluciones a los problemas más comunes al conectar Google Ads
+---
+
+Esta guía cubre los errores más frecuentes al conectar y configurar Google Ads en SaleAds.ai.
+
+No te preocupes, la mayoría se resuelven en minutos. Te explico cómo solucionarlos paso a paso.
+
+---
+
+## Problemas de Conexión
+
+### "Error de autorización"
+
+**Mensaje:** `No pudimos autorizar el acceso a tu cuenta de Google Ads. Por favor intenta de nuevo.`
+
+**Causas posibles:**
+
+1. **Permisos no otorgados:** No aceptaste todos los permisos solicitados durante el proceso OAuth
+2. **Sesión expirada:** Tu sesión de Google expiró durante el proceso
+3. **Bloqueador de pop-ups:** La ventana de autorización fue bloqueada
+4. **Cuenta incorrecta:** Iniciaste sesión con una cuenta de Google que no tiene acceso a Google Ads
+
+**Soluciones:**
+
+**Solución 1: Reintentar con todos los permisos**
+1. Haz clic en **"Reintentar"**
+2. Asegúrate de aceptar TODOS los permisos que solicita Google
+3. No cierres la ventana emergente hasta que completes el proceso
+
+**Solución 2: Verificar pop-ups**
+1. Revisa si tu navegador bloqueó una ventana emergente
+2. Permite pop-ups para saleads.ai
+3. Intenta nuevamente
+
+**Solución 3: Verificar cuenta de Google**
+1. Asegúrate de que estás iniciando sesión con la cuenta de Google correcta
+2. Si tienes varias cuentas, cierra sesión en todas y usa solo la correcta
+3. Verifica que esta cuenta tiene acceso de administrador a Google Ads
+
+---
+
+### "No se encontraron cuentas de Google Ads"
+
+**Mensaje:** `No pudimos encontrar ninguna cuenta de Google Ads asociada a esta cuenta de Google.`
+
+**Causas:**
+
+1. La cuenta de Google no tiene una cuenta de Google Ads creada
+2. La cuenta de Google Ads está en una cuenta de administrador (MCC) diferente
+3. No tienes permisos de administrador en la cuenta de Google Ads
+
+**Soluciones:**
+
+**Solución 1: Crear cuenta de Google Ads**
+1. Ve a [ads.google.com](https://ads.google.com)
+2. Crea una nueva cuenta de Google Ads
+3. Completa la configuración inicial (país, moneda, zona horaria)
+4. Regresa a SaleAds.ai y vuelve a intentar la conexión
+
+**Solución 2: Verificar acceso MCC**
+Si usas una cuenta de administrador (MCC):
+1. Asegúrate de que la cuenta individual esté vinculada al MCC
+2. Verifica que tienes acceso administrativo a la cuenta específica
+3. Intenta conectar desde la cuenta individual en lugar del MCC
+
+---
+
+### "La cuenta ya está vinculada a otro administrador"
+
+**Mensaje:** `Esta cuenta de Google Ads ya está siendo gestionada por otra cuenta de administrador.`
+
+**Causa:** La cuenta de Google Ads ya está vinculada a un MCC diferente.
+
+**Solución:**
+
+Una cuenta de Google Ads solo puede estar vinculada directamente a un MCC a la vez. Opciones:
+
+1. **Solicitar acceso desde el MCC actual:** Contacta al administrador del MCC actual y pide que te den acceso
+2. **Desvincular del MCC anterior:** El propietario actual debe desvincular la cuenta desde su MCC
+3. **Usar una cuenta diferente:** Crea o usa otra cuenta de Google Ads
+
+---
+
+### La ventana de Google no abre
+
+**Causas:**
+- Bloqueador de pop-ups activo
+- Extensiones del navegador interfiriendo
+- Navegador no compatible
+
+**Solución:**
+1. Desactiva el bloqueador de pop-ups para saleads.ai
+2. Prueba en modo incógnito/privado
+3. Usa Chrome, Firefox, Safari o Edge actualizado
+4. Desactiva extensiones temporalmente
+
+---
+
+## Problemas de Selección de Cuenta
+
+### "No aparece mi cuenta de Google Ads en la lista"
+
+**Causas:**
+
+1. No diste acceso a todas las cuentas durante la autorización OAuth
+2. La cuenta está en un nivel diferente del MCC (jerarquía profunda)
+3. Problemas temporales de la API de Google Ads
+
+**Soluciones:**
+
+**Solución 1: Reconectar con todos los permisos**
+1. Desconecta la cuenta de Google Ads en SaleAds.ai
+2. Vuelve a conectar
+3. Durante la autorización de Google, asegúrate de seleccionar **TODAS** las cuentas a las que quieres dar acceso
+
+**Solución 2: Verificar jerarquía MCC**
+1. Si usas MCC, verifica que la cuenta no esté en un nivel muy profundo (límite: 6 niveles)
+2. Considera vincular la cuenta directamente a tu MCC principal
+
+---
+
+### "Error al cargar cuentas"
+
+**Mensaje:** `Error al cargar las cuentas de Google Ads. Por favor intenta de nuevo.`
+
+**Causa:** Problema de comunicación con la API de Google Ads.
+
+**Solución:**
+1. Haz clic en **"Reintentar"**
+2. Espera 30 segundos y vuelve a intentar
+3. Si persiste, intenta en 5-10 minutos
+4. Verifica el estado de los servicios de Google Ads en [status.google.com](https://status.google.com)
+
+---
+
+## Problemas de Facturación
+
+### "Método de pago rechazado"
+
+**Causas:**
+
+* La tarjeta no está habilitada para compras internacionales
+* Fondos insuficientes
+* El banco bloqueó la transacción por sospecha de fraude
+* La dirección de facturación no coincide con la tarjeta
+
+**Solución:**
+
+1. Contacta a tu banco y autoriza transacciones a "Google"
+2. Verifica que la dirección de facturación en Google Ads coincida exactamente con la de tu tarjeta
+3. Intenta con otra tarjeta o método de pago
+4. Si usas cuenta bancaria, verifica que haya completado el proceso de verificación (3-5 días)
+
+---
+
+### "No se puede cambiar el país de facturación"
+
+**Causa:** Google Ads no permite cambiar el país de facturación después de la configuración inicial.
+
+**Solución:**
+
+Debes crear una nueva cuenta de Google Ads con el país correcto:
+1. Ve a [ads.google.com](https://ads.google.com)
+2. Crea una nueva cuenta
+3. Selecciona el país de facturación correcto
+4. Configura la nueva cuenta en SaleAds.ai
+
+<Callout type="warn" title="Importante">
+  No puedes transferir campañas ni historial entre cuentas de Google Ads. Deberás empezar de cero en la nueva cuenta.
+</Callout>
+
+---
+
+### "Facturación mensual no disponible"
+
+**Causa:** La facturación mensual requiere cumplir ciertos requisitos.
+
+**Requisitos típicos:**
+- Cuenta activa por más de 12 meses
+- Historial de gastos consistente (generalmente $5,000+ USD mensuales)
+- Buen historial de pagos
+
+**Solución:**
+
+Si no calificas para facturación mensual:
+1. Continúa usando pagos automáticos con tarjeta
+2. Mantén buen historial de pagos
+3. Contacta al soporte de Google Ads después de 12 meses para solicitar facturación mensual
+
+---
+
+## Problemas de Seguimiento de Conversiones
+
+### "El tag de conversión no se dispara"
+
+**Causas:**
+
+* El código no está instalado correctamente
+* El evento de conversión no está configurado
+* Conflictos con bloqueadores de anuncios
+
+**Soluciones:**
+
+**Verificar instalación:**
+1. Usa la extensión **Google Tag Assistant** (Chrome)
+2. Visita tu sitio web
+3. Verifica que el Google Tag (AW-XXXXX) esté instalado
+4. Completa una conversión de prueba
+5. Confirma que el tag de conversión se dispara
+
+**Verificar evento de conversión:**
+1. En Google Ads, ve a **Herramientas** → **Conversiones**
+2. Verifica que la acción de conversión esté activa
+3. Confirma que el nombre del evento coincide con el configurado en tu sitio
+
+---
+
+### "Las conversiones no aparecen en el dashboard"
+
+**Causas:**
+
+* Retraso normal de reporte (24-48 horas para primera conversión)
+* Ventana de conversión expirada
+* El usuario usó un bloqueador de anuncios
+
+**Solución:**
+
+1. **Espera el tiempo de reporte:** Las primeras conversiones pueden tardar 24-48 horas en aparecer
+2. **Verifica la ventana de conversión:** Asegúrate de que esté configurada correctamente (30-90 días)
+3. **Habilita conversiones mejoradas:** Mejora el seguimiento cuando hay bloqueadores
+4. Usa el modo de prueba en Google Tag Manager para verificar que el tag funciona
+
+---
+
+### "Discrepancia entre Google Ads y GA4"
+
+**Causa:** Google Ads y GA4 usan modelos de atribución diferentes.
+
+| Factor | Google Ads | GA4 |
+|--------|-----------|-----|
+| Modelo de atribución | Último clic (por defecto) | Basado en datos |
+| Ventana de conversión | 30 días (configurable) | 30-90 días |
+| Conteo de conversiones | Una por clic | Cada evento |
+
+**Solución:**
+
+1. Usa el seguimiento nativo de Google Ads como fuente de verdad para optimización
+2. Usa GA4 para análisis de atribución multicanal
+3. No importes conversiones de GA4 si ya tienes seguimiento nativo de Google Ads
+
+---
+
+## Desconectar y Reconectar
+
+Si ninguna solución funciona, puedes desconectar completamente y empezar de nuevo.
+
+### Pasos para Desconectar
+
+1. Ve a **Cuentas Conectadas**
+2. En Google Ads, haz clic en **"Editar Configuración"**
+3. Haz clic en **"Desconectar cuenta de Google Ads"**
+4. Confirma: **"¿Estás seguro?"** → **"Desconectar"**
+5. Verás: **"Cuenta de Google Ads desconectada exitosamente"**
+
+### Después de Desconectar
+
+- Tu cuenta vuelve al estado "No conectado"
+- Debes volver a conectar y configurar todo
+- Las estrategias existentes pueden verse afectadas
+
+---
+
+## Revocar Permisos desde Google
+
+Si quieres eliminar completamente el acceso de SaleAds.ai:
+
+1. Ve a [myaccount.google.com/permissions](https://myaccount.google.com/permissions)
+2. Busca **SaleAds** en la lista de aplicaciones de terceros
+3. Haz clic en **"Eliminar acceso"**
+4. Confirma la eliminación
+
+<Callout type="info" title="Nota">
+  Después de revocar permisos, deberás reconectar desde cero si quieres usar SaleAds.ai nuevamente.
+</Callout>
+
+---
+
+## Verificaciones Generales
+
+Si tienes problemas persistentes con Google Ads:
+
+1. **Verifica en Google:** Ve a [ads.google.com](https://ads.google.com) y confirma que puedes acceder normalmente
+2. **Prueba otro navegador:** Chrome, Firefox, Safari, Edge
+3. **Limpia el caché:** Borra cookies y caché del navegador
+4. **Modo incógnito:** Prueba en ventana privada
+
+---
+
+## ¿El Problema Persiste?
+
+Si después de intentar todas las soluciones el problema continúa:
+
+1. Toma una captura de pantalla del error
+2. Anota los pasos que realizaste
+3. [Contacta a soporte](/es/docs/solucion-problemas/contactar-soporte) con esta información
+
+### Información Útil para Soporte
+
+- El mensaje de error exacto
+- Tu ID de cuenta de Google Ads (formato: XXX-XXX-XXXX)
+- Cuándo comenzó el problema
+- Navegador y versión que usas
+- Si puedes acceder a [ads.google.com](https://ads.google.com) normalmente
+
+---
+
+<Callout type="error" title="¿El problema persiste?">
+  [Contactar Soporte →](/es/docs/solucion-problemas/contactar-soporte)
+</Callout>

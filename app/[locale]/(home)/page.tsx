@@ -1,4 +1,6 @@
-import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Cards } from 'fumadocs-ui/components/card';
+import { PreviewCard } from '@/components/preview-card';
+import { entryPreviewImages } from '@/lib/entry-preview-images';
 import {
   UserPlus,
   Link2,
@@ -17,6 +19,7 @@ interface CardItem {
   title: string;
   description: string;
   href: string;
+  image: string;
 }
 
 const content: Record<string, { title: string; subtitle: string; cards: CardItem[] }> = {
@@ -30,54 +33,63 @@ const content: Record<string, { title: string; subtitle: string; cards: CardItem
         title: 'Primeros Pasos',
         description: 'Crea tu cuenta y selecciona tu plan',
         href: '/es/docs/primeros-pasos/crear-cuenta',
+        image: entryPreviewImages.gettingStarted,
       },
       {
         icon: <Link2 />,
         title: 'Conectar Plataformas',
         description: 'Conecta Meta Ads, Google y TikTok',
         href: '/es/docs/conectar-plataformas',
+        image: entryPreviewImages.connectPlatforms,
       },
       {
         icon: <Building2 />,
         title: 'Configurar Negocio',
         description: 'Define tu marca, audiencia y brief con IA',
-        href: '/es/docs/configurar-negocio/informacion-del-negocio',
+        href: '/es/docs/configurar-negocio/brief-audio',
+        image: entryPreviewImages.configureBusiness,
       },
       {
         icon: <CreditCard />,
         title: 'Planes y Créditos',
         description: 'Entiende créditos, planes y facturación',
         href: '/es/docs/planes-creditos/sistema-creditos',
+        image: entryPreviewImages.plansCredits,
       },
       {
         icon: <Target />,
         title: 'Crear Estrategias',
         description: 'Elige y configura estrategias publicitarias',
         href: '/es/docs/estrategias/que-es-estrategia',
+        image: entryPreviewImages.createStrategies,
       },
       {
         icon: <Sparkles />,
         title: 'Generar Creativos con IA',
         description: 'Genera imágenes profesionales en segundos',
         href: '/es/docs/generar-creativos/introduccion-al-generador',
+        image: entryPreviewImages.generateCreatives,
       },
       {
         icon: <Rocket />,
         title: 'Lanzar Campaña',
         description: 'Revisa, edita copies y lanza en Meta',
         href: '/es/docs/lanzar-campana/gestionar-campanas',
+        image: entryPreviewImages.launchCampaign,
       },
       {
         icon: <HelpCircle />,
         title: 'Solución de Problemas',
         description: 'Errores comunes y cómo resolverlos',
         href: '/es/docs/solucion-problemas/preguntas-frecuentes',
+        image: entryPreviewImages.troubleshooting,
       },
       {
         icon: <BookOpen />,
         title: 'Glosario',
         description: 'Términos y definiciones de la plataforma',
         href: '/es/docs/informacion-general/glosario',
+        image: entryPreviewImages.glossary,
       },
     ],
   },
@@ -91,54 +103,63 @@ const content: Record<string, { title: string; subtitle: string; cards: CardItem
         title: 'Getting Started',
         description: 'Create your account and select your plan',
         href: '/en/docs/primeros-pasos/crear-cuenta',
+        image: entryPreviewImages.gettingStarted,
       },
       {
         icon: <Link2 />,
         title: 'Connect Platforms',
         description: 'Connect Meta Ads, Google and TikTok',
         href: '/en/docs/conectar-plataformas',
+        image: entryPreviewImages.connectPlatforms,
       },
       {
         icon: <Building2 />,
         title: 'Configure Business',
         description: 'Define your brand, audience and AI brief',
-        href: '/en/docs/configurar-negocio/informacion-del-negocio',
+        href: '/en/docs/configurar-negocio/brief-audio',
+        image: entryPreviewImages.configureBusiness,
       },
       {
         icon: <CreditCard />,
         title: 'Plans & Credits',
         description: 'Understand credits, plans and billing',
         href: '/en/docs/planes-creditos/sistema-creditos',
+        image: entryPreviewImages.plansCredits,
       },
       {
         icon: <Target />,
         title: 'Create Strategies',
         description: 'Choose and configure advertising strategies',
         href: '/en/docs/estrategias/que-es-estrategia',
+        image: entryPreviewImages.createStrategies,
       },
       {
         icon: <Sparkles />,
         title: 'Generate Creatives with AI',
         description: 'Generate professional images in seconds',
         href: '/en/docs/generar-creativos/introduccion-al-generador',
+        image: entryPreviewImages.generateCreatives,
       },
       {
         icon: <Rocket />,
         title: 'Launch Campaign',
         description: 'Review, edit copy and launch on Meta',
         href: '/en/docs/lanzar-campana/gestionar-campanas',
+        image: entryPreviewImages.launchCampaign,
       },
       {
         icon: <HelpCircle />,
         title: 'Troubleshooting',
         description: 'Common errors and how to fix them',
         href: '/en/docs/solucion-problemas/preguntas-frecuentes',
+        image: entryPreviewImages.troubleshooting,
       },
       {
         icon: <BookOpen />,
         title: 'Glossary',
         description: 'Platform terms and definitions',
         href: '/en/docs/informacion-general/glosario',
+        image: entryPreviewImages.glossary,
       },
     ],
   },
@@ -163,12 +184,13 @@ export default async function HomePage({
 
       <Cards>
         {t.cards.map((card) => (
-          <Card
+          <PreviewCard
             key={card.href}
             icon={card.icon}
             title={card.title}
             description={card.description}
             href={card.href}
+            image={card.image}
           />
         ))}
       </Cards>

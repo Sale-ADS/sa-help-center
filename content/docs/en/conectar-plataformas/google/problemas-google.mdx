@@ -1,0 +1,321 @@
+---
+title: Google Ads Troubleshooting
+description: Solutions to common problems when connecting Google Ads
+---
+
+This guide covers the most frequent errors when connecting and configuring Google Ads in SaleAds.ai.
+
+Don't worry, most are resolved in minutes. I'll explain how to fix them step by step.
+
+---
+
+## Connection Problems
+
+### "Authorization Error"
+
+**Message:** `We couldn't authorize access to your Google Ads account. Please try again.`
+
+**Possible causes:**
+
+1. **Permissions not granted:** You didn't accept all requested permissions during the OAuth process
+2. **Session expired:** Your Google session expired during the process
+3. **Pop-up blocker:** The authorization window was blocked
+4. **Wrong account:** You signed in with a Google account that doesn't have Google Ads access
+
+**Solutions:**
+
+**Solution 1: Retry with all permissions**
+1. Click **"Retry"**
+2. Make sure to accept ALL permissions Google requests
+3. Don't close the pop-up window until you complete the process
+
+**Solution 2: Check pop-ups**
+1. Check if your browser blocked a pop-up window
+2. Allow pop-ups for saleads.ai
+3. Try again
+
+**Solution 3: Verify Google account**
+1. Make sure you're signing in with the correct Google account
+2. If you have multiple accounts, sign out of all and use only the correct one
+3. Verify this account has administrator access to Google Ads
+
+---
+
+### "No Google Ads accounts found"
+
+**Message:** `We couldn't find any Google Ads accounts associated with this Google account.`
+
+**Causes:**
+
+1. The Google account doesn't have a Google Ads account created
+2. The Google Ads account is in a different manager (MCC) account
+3. You don't have administrator permissions on the Google Ads account
+
+**Solutions:**
+
+**Solution 1: Create Google Ads account**
+1. Go to [ads.google.com](https://ads.google.com)
+2. Create a new Google Ads account
+3. Complete the initial setup (country, currency, time zone)
+4. Return to SaleAds.ai and try connecting again
+
+**Solution 2: Verify MCC access**
+If you use a manager (MCC) account:
+1. Make sure the individual account is linked to the MCC
+2. Verify you have administrative access to the specific account
+3. Try connecting from the individual account instead of the MCC
+
+---
+
+### "Account already linked to another manager"
+
+**Message:** `This Google Ads account is already being managed by another manager account.`
+
+**Cause:** The Google Ads account is already linked to a different MCC.
+
+**Solution:**
+
+A Google Ads account can only be directly linked to one MCC at a time. Options:
+
+1. **Request access from current MCC:** Contact the administrator of the current MCC and ask them to give you access
+2. **Unlink from previous MCC:** The current owner must unlink the account from their MCC
+3. **Use a different account:** Create or use another Google Ads account
+
+---
+
+### Google window doesn't open
+
+**Causes:**
+- Pop-up blocker active
+- Browser extensions interfering
+- Incompatible browser
+
+**Solution:**
+1. Disable pop-up blocker for saleads.ai
+2. Try in incognito/private mode
+3. Use updated Chrome, Firefox, Safari, or Edge
+4. Disable extensions temporarily
+
+---
+
+## Account Selection Issues
+
+### "My Google Ads account doesn't appear in the list"
+
+**Causes:**
+
+1. You didn't give access to all accounts during OAuth authorization
+2. The account is at a different level in the MCC (deep hierarchy)
+3. Temporary Google Ads API issues
+
+**Solutions:**
+
+**Solution 1: Reconnect with all permissions**
+1. Disconnect the Google Ads account in SaleAds.ai
+2. Reconnect
+3. During Google authorization, make sure to select **ALL** accounts you want to give access to
+
+**Solution 2: Verify MCC hierarchy**
+1. If you use MCC, verify the account isn't at a very deep level (limit: 6 levels)
+2. Consider linking the account directly to your main MCC
+
+---
+
+### "Error loading accounts"
+
+**Message:** `Error loading Google Ads accounts. Please try again.`
+
+**Cause:** Communication problem with Google Ads API.
+
+**Solution:**
+1. Click **"Retry"**
+2. Wait 30 seconds and try again
+3. If it persists, try in 5-10 minutes
+4. Check Google Ads services status at [status.google.com](https://status.google.com)
+
+---
+
+## Billing Problems
+
+### "Payment method declined"
+
+**Causes:**
+
+* Card not enabled for international purchases
+* Insufficient funds
+* Bank blocked transaction for suspected fraud
+* Billing address doesn't match card
+
+**Solution:**
+
+1. Contact your bank and authorize transactions to "Google"
+2. Verify the billing address in Google Ads matches exactly with your card
+3. Try with another card or payment method
+4. If using bank account, verify it completed the verification process (3-5 days)
+
+---
+
+### "Cannot change billing country"
+
+**Cause:** Google Ads doesn't allow changing the billing country after initial setup.
+
+**Solution:**
+
+You must create a new Google Ads account with the correct country:
+1. Go to [ads.google.com](https://ads.google.com)
+2. Create a new account
+3. Select the correct billing country
+4. Set up the new account in SaleAds.ai
+
+<Callout type="warn" title="Important">
+  You cannot transfer campaigns or history between Google Ads accounts. You'll need to start fresh in the new account.
+</Callout>
+
+---
+
+### "Monthly invoicing not available"
+
+**Cause:** Monthly invoicing requires meeting certain requirements.
+
+**Typical requirements:**
+- Account active for more than 12 months
+- Consistent spending history (generally $5,000+ USD monthly)
+- Good payment history
+
+**Solution:**
+
+If you don't qualify for monthly invoicing:
+1. Continue using automatic card payments
+2. Maintain good payment history
+3. Contact Google Ads support after 12 months to request monthly invoicing
+
+---
+
+## Conversion Tracking Issues
+
+### "Conversion tag not firing"
+
+**Causes:**
+
+* Code not installed correctly
+* Conversion event not configured
+* Conflicts with ad blockers
+
+**Solutions:**
+
+**Verify installation:**
+1. Use **Google Tag Assistant** Chrome extension
+2. Visit your website
+3. Verify the Google Tag (AW-XXXXX) is installed
+4. Complete a test conversion
+5. Confirm the conversion tag fires
+
+**Verify conversion event:**
+1. In Google Ads, go to **Tools** → **Conversions**
+2. Verify the conversion action is active
+3. Confirm the event name matches what's configured on your site
+
+---
+
+### "Conversions not showing in dashboard"
+
+**Causes:**
+
+* Normal reporting delay (24-48 hours for first conversion)
+* Conversion window expired
+* User used an ad blocker
+
+**Solution:**
+
+1. **Wait for reporting time:** First conversions may take 24-48 hours to appear
+2. **Verify conversion window:** Make sure it's configured correctly (30-90 days)
+3. **Enable enhanced conversions:** Improves tracking when there are blockers
+4. Use GTM test mode to verify the tag works
+
+---
+
+### "Discrepancy between Google Ads and GA4"
+
+**Cause:** Google Ads and GA4 use different attribution models.
+
+| Factor | Google Ads | GA4 |
+|--------|-----------|-----|
+| Attribution model | Last click (default) | Data-driven |
+| Conversion window | 30 days (configurable) | 30-90 days |
+| Conversion counting | One per click | Every event |
+
+**Solution:**
+
+1. Use Google Ads native tracking as source of truth for optimization
+2. Use GA4 for multi-channel attribution analysis
+3. Don't import GA4 conversions if you already have Google Ads native tracking
+
+---
+
+## Disconnect and Reconnect
+
+If no solution works, you can completely disconnect and start over.
+
+### Steps to Disconnect
+
+1. Go to **Connected Accounts**
+2. In Google Ads, click **"Edit Configuration"**
+3. Click **"Disconnect Google Ads account"**
+4. Confirm: **"Are you sure?"** → **"Disconnect"**
+5. You'll see: **"Google Ads account disconnected successfully"**
+
+### After Disconnecting
+
+- Your account returns to "Not connected" status
+- You must reconnect and configure everything again
+- Existing strategies may be affected
+
+---
+
+## Revoke Permissions from Google
+
+If you want to completely remove SaleAds.ai access:
+
+1. Go to [myaccount.google.com/permissions](https://myaccount.google.com/permissions)
+2. Look for **SaleAds** in the third-party apps list
+3. Click **"Remove access"**
+4. Confirm the removal
+
+<Callout type="info" title="Note">
+  After revoking permissions, you'll need to reconnect from scratch if you want to use SaleAds.ai again.
+</Callout>
+
+---
+
+## General Verifications
+
+If you have persistent problems with Google Ads:
+
+1. **Verify in Google:** Go to [ads.google.com](https://ads.google.com) and confirm you can access normally
+2. **Try another browser:** Chrome, Firefox, Safari, Edge
+3. **Clear cache:** Clear browser cookies and cache
+4. **Incognito mode:** Try in private window
+
+---
+
+## Still Having Issues?
+
+If after trying all solutions the problem continues:
+
+1. Take a screenshot of the error
+2. Note the steps you took
+3. [Contact support](/en/docs/solucion-problemas/contactar-soporte) with this information
+
+### Useful Information for Support
+
+- The exact error message
+- Your Google Ads account ID (format: XXX-XXX-XXXX)
+- When the problem started
+- Browser and version you use
+- If you can access [ads.google.com](https://ads.google.com) normally
+
+---
+
+<Callout type="error" title="Still having issues?">
+  [Contact Support →](/en/docs/solucion-problemas/contactar-soporte)
+</Callout>

@@ -10,6 +10,7 @@
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@radix-ui/react-collapsible": "^1.1.12",
     "@radix-ui/react-tabs": "^1.1.13",
     "@takumi-rs/image-response": "^0.73.1",
@@ -21,6 +22,7 @@
     "next": "16.2.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {

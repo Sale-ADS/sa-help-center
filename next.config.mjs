@@ -6,6 +6,15 @@ const withMDX = createMDX();
 const config = {
   serverExternalPackages: ['@takumi-rs/image-response'],
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/es/docs',
+        destination: '/es',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
