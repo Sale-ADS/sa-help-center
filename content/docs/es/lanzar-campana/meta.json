@@ -2,10 +2,10 @@
   "title": "Lanzar Campaña",
   "icon": "Rocket",
   "pages": [
-    "gestionar-campanas",
     "editar-copies",
     "revision-final",
     "lanzar-meta",
-    "estrategias-lanzadas"
+    "estrategias-lanzadas",
+    "gestionar-campanas"
   ]
 }
