@@ -3,8 +3,8 @@
   "icon": "Building2",
   "pages": [
     "brief-audio",
-    "redes-sociales",
     "ubicacion-audiencia",
+    "redes-sociales",
     "revisar-brief"
   ]
 }

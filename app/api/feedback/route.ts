@@ -14,27 +14,9 @@ interface FeedbackEntry {
 // Simple in-memory store (use Redis/DB in production)
 const feedbackStore: FeedbackEntry[] = [];
 
-// Rate limiting map (use Redis in production)
-const rateLimitMap = new Map<string, number[]>();
+import { checkRateLimit } from '@/lib/rate-limit';
 
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
 const RATE_LIMIT_MAX = 10; // max 10 feedbacks per hour per IP
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const requests = rateLimitMap.get(ip) || [];
-  
-  // Remove old requests outside the window
-  const validRequests = requests.filter(time => now - time < RATE_LIMIT_WINDOW);
-  
-  if (validRequests.length >= RATE_LIMIT_MAX) {
-    return false;
-  }
-  
-  validRequests.push(now);
-  rateLimitMap.set(ip, validRequests);
-  return true;
-}
 
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -47,7 +29,7 @@ export async function POST(request: NextRequest) {
     const ip = forwardedFor?.split(',')[0] || 'unknown';
     
     // Check rate limit
-    if (!checkRateLimit(ip)) {
+    if (!checkRateLimit(ip, RATE_LIMIT_MAX)) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },
         { status: 429 }
@@ -95,21 +77,6 @@ export async function POST(request: NextRequest) {
     
     // Store feedback
     feedbackStore.push(feedback);
-    
-    // Log for monitoring (replace with analytics in production)
-    console.log('Feedback received:', {
-      id: feedback.id,
-      pagePath: feedback.pagePath,
-      isHelpful: feedback.isHelpful,
-      hasComment: !!feedback.comment,
-      timestamp: feedback.timestamp,
-    });
-    
-    // In production, you would:
-    // 1. Store in database (PostgreSQL, MongoDB, etc.)
-    // 2. Send to analytics (Segment, Amplitude, Mixpanel)
-    // 3. Notify team on negative feedback (Slack, email)
-    // 4. Update content health metrics
     
     return NextResponse.json(
       { 

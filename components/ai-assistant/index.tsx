@@ -162,10 +162,9 @@ export function AIAssistant({ locale }: AIAssistantProps) {
       });
 
       const data = await response.json();
-      console.log('[AI Assistant] API Response:', data);
 
       // Check if API returned an error
-      if (data.error) {
+      if (!response.ok || data.error) {
         console.error('[AI Assistant] API Error:', data.error, data.errorCode);
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),

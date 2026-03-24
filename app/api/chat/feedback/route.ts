@@ -12,31 +12,16 @@ interface ChatFeedback {
 
 const feedbackStore: ChatFeedback[] = [];
 
-// Rate limiting
-const rateLimitMap = new Map<string, number[]>();
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
-const RATE_LIMIT_MAX = 50;
+import { checkRateLimit } from '@/lib/rate-limit';
 
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const requests = rateLimitMap.get(ip) || [];
-  const validRequests = requests.filter(time => now - time < RATE_LIMIT_WINDOW);
-  
-  if (validRequests.length >= RATE_LIMIT_MAX) {
-    return false;
-  }
-  
-  validRequests.push(now);
-  rateLimitMap.set(ip, validRequests);
-  return true;
-}
+const RATE_LIMIT_MAX = 50;
 
 export async function POST(request: NextRequest) {
   try {
     const forwardedFor = request.headers.get('x-forwarded-for');
     const ip = forwardedFor?.split(',')[0] || 'unknown';
     
-    if (!checkRateLimit(ip)) {
+    if (!checkRateLimit(ip, RATE_LIMIT_MAX)) {
       return NextResponse.json(
         { error: 'Rate limit exceeded' },
         { status: 429 }
@@ -63,12 +48,6 @@ export async function POST(request: NextRequest) {
     };
     
     feedbackStore.push(entry);
-    
-    console.log('Chat feedback received:', {
-      messageId,
-      feedback,
-      timestamp: entry.timestamp,
-    });
     
     return NextResponse.json({ success: true });
     

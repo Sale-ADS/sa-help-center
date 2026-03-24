@@ -5,7 +5,7 @@ interface GoogleDriveEmbedProps {
 
 export function GoogleDriveEmbed({ fileId, title }: GoogleDriveEmbedProps) {
   return (
-    <div className="my-6 overflow-hidden rounded-lg border">
+    <div className="mt-0 mb-6 overflow-hidden rounded-lg border">
       <iframe
         src={`https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview`}
         width="100%"

@@ -1,23 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { checkRateLimit } from '@/lib/rate-limit';
 
-// Rate limiting
-const rateLimitMap = new Map<string, number[]>();
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
 const RATE_LIMIT_MAX = 20; // max 20 messages per hour per IP
 
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const requests = rateLimitMap.get(ip) || [];
-  const validRequests = requests.filter(time => now - time < RATE_LIMIT_WINDOW);
-  
-  if (validRequests.length >= RATE_LIMIT_MAX) {
-    return false;
-  }
-  
-  validRequests.push(now);
-  rateLimitMap.set(ip, validRequests);
-  return true;
+// Lazy singleton for Gemini API client
+let genAIInstance: GoogleGenerativeAI | null = null;
+function getGenAI(): GoogleGenerativeAI | null {
+  if (genAIInstance) return genAIInstance;
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+  genAIInstance = new GoogleGenerativeAI(apiKey);
+  return genAIInstance;
 }
 
 // System prompts for different locales
@@ -109,6 +103,12 @@ const docLinks: Record<string, Record<string, { title: string; href: string }[]>
     'facturación': [
       { title: 'Gestionar Facturación', href: '/es/docs/planes-creditos/facturacion' },
     ],
+    'bonos educación': [
+      { title: 'Bonos de educación', href: '/es/docs/planes-creditos/bonos-educacion' },
+    ],
+    'bonos educacion': [
+      { title: 'Bonos de educación', href: '/es/docs/planes-creditos/bonos-educacion' },
+    ],
   },
   en: {
     'meta': [
@@ -148,6 +148,9 @@ const docLinks: Record<string, Record<string, { title: string; href: string }[]>
     'billing': [
       { title: 'Manage Billing', href: '/en/docs/planes-creditos/facturacion' },
     ],
+    'education bonuses': [
+      { title: 'Education bonuses', href: '/en/docs/planes-creditos/bonos-educacion' },
+    ],
   },
 };
 
@@ -168,18 +171,12 @@ function findRelevantSources(query: string, locale: string): { title: string; hr
 export async function POST(request: NextRequest) {
   try {
     // Get environment variables inside the handler
-    const apiKey = process.env.GEMINI_API_KEY;
     const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash-lite';
-    
-    console.log('[Chat API] Request received');
-    console.log('[Chat API] API Key present:', apiKey ? 'YES (hidden)' : 'NO');
-    console.log('[Chat API] Model:', modelName);
 
-    // Check if API key is configured
-    if (!apiKey) {
-      console.error('[Chat API] ERROR: GEMINI_API_KEY not set');
+    const genAI = getGenAI();
+    if (!genAI) {
       return NextResponse.json(
-        { 
+        {
           error: 'AI service not configured. Please set GEMINI_API_KEY environment variable.',
           errorCode: 'MISSING_API_KEY'
         },
@@ -187,33 +184,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialize Gemini API inside the handler
-    let genAI;
-    try {
-      genAI = new GoogleGenerativeAI(apiKey);
-      console.log('[Chat API] Gemini AI initialized successfully');
-    } catch (initError) {
-      console.error('[Chat API] ERROR initializing Gemini:', initError);
-      return NextResponse.json(
-        { 
-          error: 'Failed to initialize AI service. Please check your API key.',
-          errorCode: 'INIT_FAILED'
-        },
-        { status: 500 }
-      );
-    }
-
     const body = await request.json();
     const { message, locale = 'es', history = [], pageContext } = body;
-    
-    console.log('[Chat API] Message:', message?.substring(0, 50) + '...');
-    console.log('[Chat API] Locale:', locale);
     
     // Rate limiting
     const forwardedFor = request.headers.get('x-forwarded-for');
     const ip = forwardedFor?.split(',')[0] || 'unknown';
     
-    if (!checkRateLimit(ip)) {
+    if (!checkRateLimit(ip, RATE_LIMIT_MAX)) {
       return NextResponse.json(
         { 
           error: locale === 'es' 
@@ -236,9 +214,7 @@ export async function POST(request: NextRequest) {
     let model;
     try {
       model = genAI.getGenerativeModel({ model: modelName });
-      console.log('[Chat API] Model ready:', modelName);
     } catch (modelError) {
-      console.error('[Chat API] ERROR getting model:', modelError);
       return NextResponse.json(
         { 
           error: 'Failed to load AI model. Please try again later.',
@@ -281,9 +257,7 @@ export async function POST(request: NextRequest) {
           ...conversationHistory,
         ],
       });
-      console.log('[Chat API] Chat session started');
     } catch (chatError) {
-      console.error('[Chat API] ERROR starting chat:', chatError);
       return NextResponse.json(
         { 
           error: 'Failed to start conversation. Please try again.',
@@ -297,9 +271,7 @@ export async function POST(request: NextRequest) {
     let result;
     try {
       result = await chat.sendMessage(message + contextMessage);
-      console.log('[Chat API] Response generated successfully');
     } catch (generateError: any) {
-      console.error('[Chat API] ERROR generating response:', generateError);
       
       // Check for specific Gemini API errors
       const errorMessage = generateError?.message || '';
@@ -347,8 +319,6 @@ export async function POST(request: NextRequest) {
     // Generate follow-up suggestions based on the conversation
     const suggestions = generateSuggestions(message, locale, sources);
 
-    console.log('[Chat API] Request completed successfully');
-
     return NextResponse.json({
       answer,
       sources: sources.slice(0, 3),
@@ -357,7 +327,6 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error: any) {
-    console.error('[Chat API] UNEXPECTED ERROR:', error);
     
     const errorLocale = 'es';
     return NextResponse.json(
@@ -368,7 +337,7 @@ export async function POST(request: NextRequest) {
         errorCode: 'UNKNOWN_ERROR',
         details: error?.message || 'Unknown error'
       },
-      { status: 200 } // Return 200 with error message to show in UI
+      { status: 500 }
     );
   }
 }

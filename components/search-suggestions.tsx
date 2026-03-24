@@ -21,6 +21,7 @@ const suggestions: Record<string, SearchSuggestion[]> = {
     { query: 'business manager', category: 'Meta Ads' },
     { query: 'configurar negocio', category: 'Configuración' },
     { query: 'créditos', category: 'Facturación' },
+    { query: 'bonos de educación', category: 'Planes' },
     { query: 'google ads', category: 'Plataformas' },
     { query: 'tiktok', category: 'Plataformas' },
   ],
@@ -31,6 +32,7 @@ const suggestions: Record<string, SearchSuggestion[]> = {
     { query: 'business manager', category: 'Meta Ads' },
     { query: 'configure business', category: 'Configuration' },
     { query: 'credits', category: 'Billing' },
+    { query: 'education bonuses', category: 'Plans' },
     { query: 'google ads', category: 'Platforms' },
     { query: 'tiktok', category: 'Platforms' },
   ],
@@ -50,6 +52,8 @@ const intentRoutes: Record<string, string> = {
   'configurar negocio': '/es/docs/configurar-negocio/informacion-del-negocio',
   'créditos': '/es/docs/planes-creditos/sistema-creditos',
   'facturación': '/es/docs/planes-creditos/facturacion',
+  'bonos de educación': '/es/docs/planes-creditos/bonos-educacion',
+  'bonos de educacion': '/es/docs/planes-creditos/bonos-educacion',
   'soporte': '/es/docs/solucion-problemas/contactar-soporte',
   
   // English
@@ -61,6 +65,7 @@ const intentRoutes: Record<string, string> = {
   'launch': '/en/docs/lanzar-campana',
   'configure business': '/en/docs/configurar-negocio/informacion-del-negocio',
   'billing': '/en/docs/planes-creditos/facturacion',
+  'education bonuses': '/en/docs/planes-creditos/bonos-educacion',
   'support': '/en/docs/solucion-problemas/contactar-soporte',
 };
 

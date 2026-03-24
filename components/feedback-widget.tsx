@@ -5,9 +5,34 @@ import { ThumbsUp, ThumbsDown, Send, X, Loader2, AlertCircle } from 'lucide-reac
 
 interface FeedbackWidgetProps {
   pagePath: string;
+  locale?: string;
 }
 
-export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
+const i18n = {
+  es: {
+    thankYou: '¡Gracias por tu feedback! Nos ayuda a mejorar.',
+    wasHelpful: '¿Te fue útil esta página?',
+    yes: 'Sí',
+    no: 'No',
+    whatToImprove: '¿Qué podemos mejorar?',
+    placeholder: 'Cuéntanos cómo podemos mejorar esta página...',
+    send: 'Enviar',
+    cancel: 'Cancelar',
+  },
+  en: {
+    thankYou: 'Thanks for your feedback! It helps us improve.',
+    wasHelpful: 'Was this page helpful?',
+    yes: 'Yes',
+    no: 'No',
+    whatToImprove: 'What can we improve?',
+    placeholder: 'Tell us how we can improve this page...',
+    send: 'Send',
+    cancel: 'Cancel',
+  },
+};
+
+export function FeedbackWidget({ pagePath, locale = 'es' }: FeedbackWidgetProps) {
+  const t = i18n[locale as keyof typeof i18n] || i18n.es;
   const [submitted, setSubmitted] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [comment, setComment] = useState('');
@@ -67,7 +92,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
           </svg>
-          <span>¡Gracias por tu feedback! Nos ayuda a mejorar.</span>
+          <span>{t.thankYou}</span>
         </div>
       </div>
     );
@@ -85,7 +110,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
       {!showComment ? (
         <div>
           <p className="text-sm font-medium mb-3 text-fd-foreground">
-            ¿Te fue útil esta página?
+            {t.wasHelpful}
           </p>
           <div className="flex gap-2">
             <button
@@ -94,7 +119,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
               className="inline-flex items-center gap-2 px-4 py-2 text-sm border rounded-lg hover:bg-fd-accent transition-colors disabled:opacity-50"
             >
               <ThumbsUp className="h-4 w-4" />
-              <span>Sí</span>
+              <span>{t.yes}</span>
             </button>
             <button
               onClick={() => submitFeedback(false)}
@@ -102,7 +127,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
               className="inline-flex items-center gap-2 px-4 py-2 text-sm border rounded-lg hover:bg-fd-accent transition-colors disabled:opacity-50"
             >
               <ThumbsDown className="h-4 w-4" />
-              <span>No</span>
+              <span>{t.no}</span>
             </button>
           </div>
         </div>
@@ -110,7 +135,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-fd-foreground">
-              ¿Qué podemos mejorar?
+              {t.whatToImprove}
             </p>
             <button
               onClick={() => {
@@ -125,7 +150,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="Cuéntanos cómo podemos mejorar esta página..."
+            placeholder={t.placeholder}
             className="w-full px-3 py-2 text-sm border rounded-lg resize-none h-24 focus:outline-none focus:ring-2 focus:ring-fd-primary"
           />
           <div className="flex gap-2">
@@ -139,7 +164,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
               ) : (
                 <Send className="h-4 w-4" />
               )}
-              <span>Enviar</span>
+              <span>{t.send}</span>
             </button>
             <button
               onClick={() => {
@@ -149,7 +174,7 @@ export function FeedbackWidget({ pagePath }: FeedbackWidgetProps) {
               disabled={isSubmitting}
               className="inline-flex items-center gap-2 px-4 py-2 text-sm border rounded-lg hover:bg-fd-accent transition-colors disabled:opacity-50"
             >
-              <span>Cancelar</span>
+              <span>{t.cancel}</span>
             </button>
           </div>
         </div>

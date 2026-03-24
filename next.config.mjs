@@ -13,6 +13,20 @@ const config = {
         destination: '/es',
         permanent: true,
       },
+      {
+        source:
+          '/es/docs/conectar-plataformas/meta-ads/activos-opcionales',
+        destination:
+          '/es/docs/conectar-plataformas/meta-ads/activos-digitales',
+        permanent: true,
+      },
+      {
+        source:
+          '/en/docs/conectar-plataformas/meta-ads/activos-opcionales',
+        destination:
+          '/en/docs/conectar-plataformas/meta-ads/activos-digitales',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

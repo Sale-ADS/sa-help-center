@@ -189,7 +189,7 @@ Error → Remember error message → Open help center
 
 ### How SaleAds.ai Compares
 
-| Feature | SaleAds.ai | Stripe Docs | Notion Help | Linear Docs |
+| Feature | SaleAds.ai | Hotmart Docs | Notion Help | Linear Docs |
 |---------|------------|-------------|-------------|-------------|
 | AI Search | ❌ | ✅ | ✅ | ❌ |
 | Interactive Onboarding | ❌ | ❌ | ✅ | ❌ |
@@ -201,7 +201,7 @@ Error → Remember error message → Open help center
 | Search Analytics | ❌ | ✅ | ✅ | ❌ |
 
 **Key Insights:**
-- Stripe: Best-in-class for developer docs (API playground, code samples)
+- Hotmart: Best-in-class for developer docs (API playground, code samples)
 - Notion: Excellent onboarding wizard, contextual help
 - Linear: Clean, fast, great search
 

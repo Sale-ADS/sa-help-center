@@ -5,7 +5,7 @@ interface YoutubeEmbedProps {
 
 export function YoutubeEmbed({ videoId, title }: YoutubeEmbedProps) {
   return (
-    <div className="my-6 overflow-hidden rounded-lg border">
+    <div className="mt-0 mb-6 overflow-hidden rounded-lg border">
       <iframe
         src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}`}
         width="100%"

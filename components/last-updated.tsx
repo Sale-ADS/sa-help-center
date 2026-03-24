@@ -5,9 +5,10 @@ import { Clock } from 'lucide-react';
 
 interface LastUpdatedProps {
   date?: string;
+  locale?: string;
 }
 
-export function LastUpdated({ date }: LastUpdatedProps) {
+export function LastUpdated({ date, locale = 'es' }: LastUpdatedProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,9 @@ export function LastUpdated({ date }: LastUpdatedProps) {
 
   if (!mounted || !date) return null;
 
-  const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+  const dateLocale = locale === 'en' ? 'en-US' : 'es-ES';
+  const label = locale === 'en' ? 'Last updated' : 'Última actualización';
+  const formattedDate = new Date(date).toLocaleDateString(dateLocale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -25,7 +28,7 @@ export function LastUpdated({ date }: LastUpdatedProps) {
   return (
     <div className="flex items-center gap-2 text-sm text-fd-muted-foreground mt-8 pt-6 border-t">
       <Clock className="h-4 w-4" />
-      <span>Última actualización: {formattedDate}</span>
+      <span>{label}: {formattedDate}</span>
     </div>
   );
 }
