@@ -1,6 +1,7 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { Steps, Step } from 'fumadocs-ui/components/steps';
 import { PreviewCard } from '@/components/preview-card';
+import { ScreenshotPlaceholder } from '@/components/screenshot-placeholder';
 import {
   UserPlus,
   Link2,
@@ -19,6 +20,7 @@ export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
     PreviewCard,
+    ScreenshotPlaceholder,
     Steps,
     Step,
     UserPlus,

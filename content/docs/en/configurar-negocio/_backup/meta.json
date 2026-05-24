@@ -1,0 +1,10 @@
+{
+  "title": "Configure Business",
+  "icon": "Building2",
+  "pages": [
+    "brief-audio",
+    "ubicacion-audiencia",
+    "redes-sociales",
+    "revisar-brief"
+  ]
+}

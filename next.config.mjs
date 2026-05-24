@@ -27,6 +27,47 @@ const config = {
           '/en/docs/conectar-plataformas/meta-ads/activos-digitales',
         permanent: true,
       },
+      // Redirects from old "Configurar Mi Negocio" pages → new overview
+      {
+        source: '/es/docs/configurar-negocio/brief-audio',
+        destination: '/es/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/es/docs/configurar-negocio/redes-sociales',
+        destination: '/es/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/es/docs/configurar-negocio/ubicacion-audiencia',
+        destination: '/es/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/es/docs/configurar-negocio/revisar-brief',
+        destination: '/es/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/en/docs/configurar-negocio/brief-audio',
+        destination: '/en/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/en/docs/configurar-negocio/redes-sociales',
+        destination: '/en/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/en/docs/configurar-negocio/ubicacion-audiencia',
+        destination: '/en/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
+      {
+        source: '/en/docs/configurar-negocio/revisar-brief',
+        destination: '/en/docs/configurar-negocio/como-definir-tu-marca',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
