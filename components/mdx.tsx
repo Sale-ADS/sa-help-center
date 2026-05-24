@@ -12,6 +12,9 @@ import {
   Rocket,
   HelpCircle,
   BookOpen,
+  Globe,
+  Mic,
+  FileText,
 } from 'lucide-react';
 import { MetaIcon, GoogleIcon, TikTokIcon } from '@/components/icons';
 import type { MDXComponents } from 'mdx/types';
@@ -32,6 +35,9 @@ export function getMDXComponents(components?: MDXComponents) {
     Rocket,
     HelpCircle,
     BookOpen,
+    Globe,
+    Mic,
+    FileText,
     MetaIcon,
     GoogleIcon,
     TikTokIcon,
