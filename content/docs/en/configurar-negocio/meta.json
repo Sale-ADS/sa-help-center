@@ -1,9 +1,10 @@
 {
-  "title": "Configure Business",
+  "title": "Set Up My Business",
   "icon": "Building2",
   "pages": [
-    "brief-audio",
-    "redes-sociales",
-    "revisar-brief"
+    "como-definir-tu-marca",
+    "con-sitio-web",
+    "sin-sitio-web",
+    "editar-mi-negocio"
   ]
 }

@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { 
-  Lightbulb, 
-  ArrowRight, 
-  BookOpen, 
+import {
+  Lightbulb,
+  ArrowRight,
+  BookOpen,
   Target,
   CheckCircle2,
   Circle,
@@ -29,132 +29,233 @@ interface UserJourney {
   completedSteps: string[];
 }
 
-// Content graph - defines relationships between pages
+// Locale-agnostic content graph - uses paths without locale prefix
 const contentGraph: Record<string, {
   prerequisites: string[];
   nextSteps: string[];
   related: string[];
 }> = {
-  '/es/docs/primeros-pasos/crear-cuenta': {
+  '/docs/primeros-pasos/crear-cuenta': {
     prerequisites: [],
-    nextSteps: ['/es/docs/primeros-pasos/seleccionar-plan'],
-    related: ['/es/docs/primeros-pasos/navegacion-dashboard'],
+    nextSteps: ['/docs/primeros-pasos/seleccionar-plan'],
+    related: ['/docs/primeros-pasos/navegacion-dashboard'],
   },
-  '/es/docs/primeros-pasos/seleccionar-plan': {
-    prerequisites: ['/es/docs/primeros-pasos/crear-cuenta'],
-    nextSteps: ['/es/docs/configurar-negocio/informacion-del-negocio'],
-    related: ['/es/docs/primeros-pasos/planes-disponibles'],
+  '/docs/primeros-pasos/seleccionar-plan': {
+    prerequisites: ['/docs/primeros-pasos/crear-cuenta'],
+    nextSteps: ['/docs/configurar-negocio/informacion-del-negocio'],
+    related: ['/docs/primeros-pasos/planes-disponibles', '/docs/planes-creditos/bonos-educacion'],
   },
-  '/es/docs/configurar-negocio/informacion-del-negocio': {
-    prerequisites: ['/es/docs/primeros-pasos/seleccionar-plan'],
-    nextSteps: ['/es/docs/configurar-negocio/brief-audio'],
+  '/docs/primeros-pasos/planes-disponibles': {
+    prerequisites: [],
+    nextSteps: ['/docs/primeros-pasos/seleccionar-plan'],
+    related: ['/docs/planes-creditos/bonos-educacion', '/docs/planes-creditos/sistema-creditos'],
+  },
+  '/docs/planes-creditos/bonos-educacion': {
+    prerequisites: [],
+    nextSteps: [],
+    related: ['/docs/primeros-pasos/planes-disponibles', '/docs/planes-creditos/creditos-incluidos'],
+  },
+  '/docs/planes-creditos/creditos-incluidos': {
+    prerequisites: [],
+    nextSteps: [],
+    related: ['/docs/planes-creditos/bonos-educacion', '/docs/planes-creditos/sistema-creditos'],
+  },
+  '/docs/planes-creditos/sistema-creditos': {
+    prerequisites: [],
+    nextSteps: [],
+    related: ['/docs/planes-creditos/creditos-incluidos', '/docs/planes-creditos/bonos-educacion'],
+  },
+  '/docs/configurar-negocio/informacion-del-negocio': {
+    prerequisites: ['/docs/primeros-pasos/seleccionar-plan'],
+    nextSteps: ['/docs/configurar-negocio/brief-audio'],
     related: [],
   },
-  '/es/docs/configurar-negocio/brief-audio': {
-    prerequisites: ['/es/docs/configurar-negocio/informacion-del-negocio'],
-    nextSteps: ['/es/docs/conectar-plataformas'],
-    related: ['/es/docs/configurar-negocio/revisar-brief'],
+  '/docs/configurar-negocio/brief-audio': {
+    prerequisites: ['/docs/configurar-negocio/informacion-del-negocio'],
+    nextSteps: ['/docs/conectar-plataformas'],
+    related: ['/docs/configurar-negocio/revisar-brief'],
   },
-  '/es/docs/conectar-plataformas': {
-    prerequisites: ['/es/docs/configurar-negocio/brief-audio'],
-    nextSteps: ['/es/docs/conectar-plataformas/meta-ads/requisitos-previos'],
-    related: ['/es/docs/conectar-plataformas/meta-ads/conectar-facebook'],
+  '/docs/conectar-plataformas': {
+    prerequisites: ['/docs/configurar-negocio/brief-audio'],
+    nextSteps: ['/docs/conectar-plataformas/meta-ads/requisitos-previos'],
+    related: ['/docs/conectar-plataformas/meta-ads/conectar-facebook'],
   },
-  '/es/docs/conectar-plataformas/meta-ads/requisitos-previos': {
-    prerequisites: ['/es/docs/conectar-plataformas'],
-    nextSteps: ['/es/docs/conectar-plataformas/meta-ads/conectar-facebook'],
-    related: ['/es/docs/conectar-plataformas/meta-ads/problemas-meta'],
+  '/docs/conectar-plataformas/meta-ads/requisitos-previos': {
+    prerequisites: ['/docs/conectar-plataformas'],
+    nextSteps: ['/docs/conectar-plataformas/meta-ads/conectar-facebook'],
+    related: ['/docs/conectar-plataformas/meta-ads/problemas-meta'],
   },
-  '/es/docs/conectar-plataformas/meta-ads/conectar-facebook': {
-    prerequisites: ['/es/docs/conectar-plataformas/meta-ads/requisitos-previos'],
-    nextSteps: ['/es/docs/conectar-plataformas/meta-ads/seleccionar-business-manager'],
-    related: ['/es/docs/conectar-plataformas/meta-ads/cuenta-publicitaria'],
+  '/docs/conectar-plataformas/meta-ads/conectar-facebook': {
+    prerequisites: ['/docs/conectar-plataformas/meta-ads/requisitos-previos'],
+    nextSteps: ['/docs/conectar-plataformas/meta-ads/seleccionar-business-manager'],
+    related: ['/docs/conectar-plataformas/meta-ads/cuenta-publicitaria'],
   },
-  '/es/docs/conectar-plataformas/meta-ads/seleccionar-business-manager': {
-    prerequisites: ['/es/docs/conectar-plataformas/meta-ads/conectar-facebook'],
-    nextSteps: ['/es/docs/conectar-plataformas/meta-ads/cuenta-publicitaria'],
-    related: ['/es/docs/conectar-plataformas/meta-ads/activos-opcionales'],
+  '/docs/conectar-plataformas/meta-ads/seleccionar-business-manager': {
+    prerequisites: ['/docs/conectar-plataformas/meta-ads/conectar-facebook'],
+    nextSteps: ['/docs/conectar-plataformas/meta-ads/cuenta-publicitaria'],
+    related: ['/docs/conectar-plataformas/meta-ads/activos-digitales'],
   },
-  '/es/docs/conectar-plataformas/meta-ads/cuenta-publicitaria': {
-    prerequisites: ['/es/docs/conectar-plataformas/meta-ads/seleccionar-business-manager'],
-    nextSteps: ['/es/docs/estrategias/que-es-estrategia'],
-    related: ['/es/docs/conectar-plataformas/meta-ads/activos-opcionales'],
+  '/docs/conectar-plataformas/meta-ads/cuenta-publicitaria': {
+    prerequisites: ['/docs/conectar-plataformas/meta-ads/seleccionar-business-manager'],
+    nextSteps: ['/docs/estrategias/que-es-estrategia'],
+    related: ['/docs/conectar-plataformas/meta-ads/activos-digitales'],
   },
-  '/es/docs/estrategias/que-es-estrategia': {
-    prerequisites: ['/es/docs/conectar-plataformas/meta-ads/cuenta-publicitaria'],
-    nextSteps: ['/es/docs/estrategias/explorar-estrategias'],
-    related: ['/es/docs/estrategias/configurar-estrategia'],
+  '/docs/estrategias/que-es-estrategia': {
+    prerequisites: ['/docs/conectar-plataformas/meta-ads/cuenta-publicitaria'],
+    nextSteps: ['/docs/estrategias/explorar-estrategias'],
+    related: ['/docs/estrategias/configurar-estrategia'],
   },
-  '/es/docs/estrategias/explorar-estrategias': {
-    prerequisites: ['/es/docs/estrategias/que-es-estrategia'],
-    nextSteps: ['/es/docs/generar-creativos/introduccion-al-generador'],
-    related: ['/es/docs/estrategias/configurar-estrategia'],
+  '/docs/estrategias/explorar-estrategias': {
+    prerequisites: ['/docs/estrategias/que-es-estrategia'],
+    nextSteps: ['/docs/generar-creativos/introduccion-al-generador'],
+    related: ['/docs/estrategias/configurar-estrategia'],
   },
-  '/es/docs/generar-creativos/introduccion-al-generador': {
-    prerequisites: ['/es/docs/estrategias/explorar-estrategias'],
-    nextSteps: ['/es/docs/lanzar-campana/lanzar-meta'],
-    related: ['/es/docs/generar-creativos/prompts-efectivos'],
+  '/docs/generar-creativos/introduccion-al-generador': {
+    prerequisites: ['/docs/estrategias/explorar-estrategias'],
+    nextSteps: ['/docs/lanzar-campana/lanzar-meta'],
+    related: ['/docs/generar-creativos/prompts-efectivos'],
   },
-  '/es/docs/lanzar-campana/lanzar-meta': {
-    prerequisites: ['/es/docs/generar-creativos/introduccion-al-generador'],
-    nextSteps: ['/es/docs/lanzar-campana/gestionar-campanas'],
-    related: ['/es/docs/lanzar-campana/revision-final'],
+  '/docs/lanzar-campana/lanzar-meta': {
+    prerequisites: ['/docs/generar-creativos/introduccion-al-generador'],
+    nextSteps: ['/docs/lanzar-campana/gestionar-campanas'],
+    related: ['/docs/lanzar-campana/revision-final'],
   },
-  '/es/docs/lanzar-campana/gestionar-campanas': {
-    prerequisites: ['/es/docs/lanzar-campana/lanzar-meta'],
-    nextSteps: ['/es/docs/lanzar-campana/estrategias-lanzadas'],
-    related: ['/es/docs/lanzar-campana/editar-copies'],
+  '/docs/lanzar-campana/gestionar-campanas': {
+    prerequisites: ['/docs/lanzar-campana/lanzar-meta'],
+    nextSteps: ['/docs/lanzar-campana/estrategias-lanzadas'],
+    related: ['/docs/lanzar-campana/editar-copies'],
   },
 };
 
-// Popular content across all users
-const popularContent: Recommendation[] = [
-  {
-    id: 'pop-1',
-    type: 'popular',
-    title: 'Seleccionar tu Plan',
-    description: 'Compara planes PRO, BUSINESS y AGENCY',
-    href: '/es/docs/primeros-pasos/seleccionar-plan',
-    priority: 'high',
+const titles: Record<string, Record<string, string>> = {
+  es: {
+    '/docs/primeros-pasos/crear-cuenta': 'Crear Cuenta',
+    '/docs/primeros-pasos/seleccionar-plan': 'Seleccionar Plan',
+    '/docs/primeros-pasos/planes-disponibles': 'Planes Disponibles',
+    '/docs/primeros-pasos/navegacion-dashboard': 'Navegación del Dashboard',
+    '/docs/planes-creditos/bonos-educacion': 'Bonos de educación',
+    '/docs/planes-creditos/creditos-incluidos': 'Créditos Incluidos',
+    '/docs/planes-creditos/sistema-creditos': 'Sistema de Créditos',
+    '/docs/configurar-negocio/informacion-del-negocio': 'Información del Negocio',
+    '/docs/configurar-negocio/brief-audio': 'Crear Brief con Audio',
+    '/docs/configurar-negocio/revisar-brief': 'Revisar Brief',
+    '/docs/conectar-plataformas': 'Conectar Plataformas',
+    '/docs/conectar-plataformas/meta-ads/requisitos-previos': 'Requisitos Meta Ads',
+    '/docs/conectar-plataformas/meta-ads/conectar-facebook': 'Conectar Facebook',
+    '/docs/conectar-plataformas/meta-ads/seleccionar-business-manager': 'Seleccionar Business Manager',
+    '/docs/conectar-plataformas/meta-ads/cuenta-publicitaria': 'Cuenta Publicitaria',
+    '/docs/conectar-plataformas/meta-ads/activos-digitales': 'Activos digitales',
+    '/docs/conectar-plataformas/meta-ads/problemas-meta': 'Solución de Problemas Meta',
+    '/docs/estrategias/que-es-estrategia': '¿Qué es una Estrategia?',
+    '/docs/estrategias/explorar-estrategias': 'Explorar Estrategias',
+    '/docs/estrategias/configurar-estrategia': 'Configurar Estrategia',
+    '/docs/generar-creativos/introduccion-al-generador': 'Generador de Creativos',
+    '/docs/generar-creativos/prompts-efectivos': 'Prompts Efectivos',
+    '/docs/lanzar-campana/lanzar-meta': 'Lanzar en Meta',
+    '/docs/lanzar-campana/revision-final': 'Revisión Final',
+    '/docs/lanzar-campana/gestionar-campanas': 'Gestionar Campañas',
+    '/docs/lanzar-campana/estrategias-lanzadas': 'Estrategias Lanzadas',
+    '/docs/lanzar-campana/editar-copies': 'Editar Copies',
   },
-  {
-    id: 'pop-2',
-    type: 'popular',
-    title: 'Conectar Meta Ads',
-    description: 'Vincula tu cuenta de Facebook e Instagram',
-    href: '/es/docs/conectar-plataformas/meta-ads/conectar-facebook',
-    priority: 'high',
+  en: {
+    '/docs/primeros-pasos/crear-cuenta': 'Create Account',
+    '/docs/primeros-pasos/seleccionar-plan': 'Select Plan',
+    '/docs/primeros-pasos/planes-disponibles': 'Available Plans',
+    '/docs/primeros-pasos/navegacion-dashboard': 'Dashboard Navigation',
+    '/docs/planes-creditos/bonos-educacion': 'Education Bonuses',
+    '/docs/planes-creditos/creditos-incluidos': 'Credits Included',
+    '/docs/planes-creditos/sistema-creditos': 'Credits System',
+    '/docs/configurar-negocio/informacion-del-negocio': 'Business Information',
+    '/docs/configurar-negocio/brief-audio': 'Create Brief with Audio',
+    '/docs/configurar-negocio/revisar-brief': 'Review Brief',
+    '/docs/conectar-plataformas': 'Connect Platforms',
+    '/docs/conectar-plataformas/meta-ads/requisitos-previos': 'Meta Ads Prerequisites',
+    '/docs/conectar-plataformas/meta-ads/conectar-facebook': 'Connect Facebook',
+    '/docs/conectar-plataformas/meta-ads/seleccionar-business-manager': 'Select Business Manager',
+    '/docs/conectar-plataformas/meta-ads/cuenta-publicitaria': 'Ad Account',
+    '/docs/conectar-plataformas/meta-ads/activos-digitales': 'Digital Assets',
+    '/docs/conectar-plataformas/meta-ads/problemas-meta': 'Meta Troubleshooting',
+    '/docs/estrategias/que-es-estrategia': 'What is a Strategy?',
+    '/docs/estrategias/explorar-estrategias': 'Explore Strategies',
+    '/docs/estrategias/configurar-estrategia': 'Configure Strategy',
+    '/docs/generar-creativos/introduccion-al-generador': 'Creative Generator',
+    '/docs/generar-creativos/prompts-efectivos': 'Effective Prompts',
+    '/docs/lanzar-campana/lanzar-meta': 'Launch on Meta',
+    '/docs/lanzar-campana/revision-final': 'Final Review',
+    '/docs/lanzar-campana/gestionar-campanas': 'Manage Campaigns',
+    '/docs/lanzar-campana/estrategias-lanzadas': 'Launched Strategies',
+    '/docs/lanzar-campana/editar-copies': 'Edit Copies',
   },
-  {
-    id: 'pop-3',
-    type: 'popular',
-    title: 'Lanzar tu Primera Campaña',
-    description: 'Guía paso a paso para publicar en Meta',
-    href: '/es/docs/lanzar-campana/lanzar-meta',
-    priority: 'high',
-  },
-];
+};
 
-export function SmartRecommendations({ currentPath }: { currentPath: string }) {
+const i18n = {
+  es: {
+    recommendations: 'Recomendaciones',
+    nextStep: 'Siguiente paso',
+    prerequisite: 'Recomendado primero',
+    related: 'Relacionado',
+    popular: 'Popular',
+    recommended: 'Recomendado',
+    nextStepDesc: 'Siguiente paso recomendado',
+    prerequisiteDesc: 'Contenido recomendado antes de continuar',
+    relatedDesc: 'Contenido relacionado',
+    viewAll: 'Ver todo el contenido',
+    markCompleted: 'Marcar como completado',
+    fallbackTitle: 'Documentación',
+    popularItems: [
+      { id: 'pop-1', title: 'Seleccionar tu Plan', description: 'Compara planes PRO y BUSINESS', href: '/docs/primeros-pasos/seleccionar-plan' },
+      { id: 'pop-2', title: 'Conectar Meta Ads', description: 'Vincula tu cuenta de Facebook e Instagram', href: '/docs/conectar-plataformas/meta-ads/conectar-facebook' },
+      { id: 'pop-3', title: 'Lanzar tu Primera Estrategia', description: 'Guía paso a paso para publicar en Meta', href: '/docs/lanzar-campana/lanzar-meta' },
+    ],
+  },
+  en: {
+    recommendations: 'Recommendations',
+    nextStep: 'Next step',
+    prerequisite: 'Recommended first',
+    related: 'Related',
+    popular: 'Popular',
+    recommended: 'Recommended',
+    nextStepDesc: 'Recommended next step',
+    prerequisiteDesc: 'Recommended content before continuing',
+    relatedDesc: 'Related content',
+    viewAll: 'View all content',
+    markCompleted: 'Mark as completed',
+    fallbackTitle: 'Documentation',
+    popularItems: [
+      { id: 'pop-1', title: 'Select Your Plan', description: 'Compare PRO and BUSINESS plans', href: '/docs/primeros-pasos/seleccionar-plan' },
+      { id: 'pop-2', title: 'Connect Meta Ads', description: 'Link your Facebook and Instagram accounts', href: '/docs/conectar-plataformas/meta-ads/conectar-facebook' },
+      { id: 'pop-3', title: 'Launch Your First Strategy', description: 'Step-by-step guide to publish on Meta', href: '/docs/lanzar-campana/lanzar-meta' },
+    ],
+  },
+};
+
+function stripLocale(path: string): string {
+  return path.replace(/^\/(es|en)/, '');
+}
+
+function addLocale(path: string, locale: string): string {
+  return `/${locale}${path}`;
+}
+
+export function SmartRecommendations({ currentPath, locale = 'es' }: { currentPath: string; locale?: string }) {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [isVisible, setIsVisible] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
+  const t = i18n[locale as keyof typeof i18n] || i18n.es;
+  const localeTitles = titles[locale] || titles.es;
 
   useEffect(() => {
-    // Load user journey from localStorage
     const stored = localStorage.getItem('user-journey');
-    const journey: UserJourney = stored 
+    const journey: UserJourney = stored
       ? JSON.parse(stored)
       : { currentPath: '', visitedPaths: [], completedSteps: [] };
 
-    // Update journey
     if (!journey.visitedPaths.includes(currentPath)) {
       journey.visitedPaths.push(currentPath);
     }
     journey.currentPath = currentPath;
     localStorage.setItem('user-journey', JSON.stringify(journey));
 
-    // Generate recommendations
     const recs = generateRecommendations(currentPath, journey);
     setRecommendations(recs);
   }, [currentPath]);
@@ -164,54 +265,60 @@ export function SmartRecommendations({ currentPath }: { currentPath: string }) {
     journey: UserJourney
   ): Recommendation[] => {
     const recs: Recommendation[] = [];
-    const graph = contentGraph[path];
+    const normalizedPath = stripLocale(path);
+    const graph = contentGraph[normalizedPath];
 
     if (graph) {
-      // Add next steps
       graph.nextSteps.forEach((nextPath, index) => {
-        if (!journey.completedSteps.includes(nextPath)) {
+        const fullPath = addLocale(nextPath, locale);
+        if (!journey.completedSteps.includes(fullPath)) {
           recs.push({
             id: `next-${index}`,
             type: 'next-step',
-            title: getPageTitle(nextPath),
-            description: 'Siguiente paso recomendado',
-            href: nextPath,
+            title: localeTitles[nextPath] || t.fallbackTitle,
+            description: t.nextStepDesc,
+            href: fullPath,
             priority: 'high',
           });
         }
       });
 
-      // Add prerequisites if not completed
       graph.prerequisites.forEach((prereq, index) => {
-        if (!journey.completedSteps.includes(prereq)) {
+        const fullPath = addLocale(prereq, locale);
+        if (!journey.completedSteps.includes(fullPath)) {
           recs.push({
             id: `pre-${index}`,
             type: 'prerequisite',
-            title: getPageTitle(prereq),
-            description: 'Contenido recomendado antes de continuar',
-            href: prereq,
+            title: localeTitles[prereq] || t.fallbackTitle,
+            description: t.prerequisiteDesc,
+            href: fullPath,
             priority: 'high',
           });
         }
       });
 
-      // Add related content
       graph.related.slice(0, 2).forEach((related, index) => {
-        if (!journey.visitedPaths.includes(related)) {
+        const fullPath = addLocale(related, locale);
+        if (!journey.visitedPaths.includes(fullPath)) {
           recs.push({
             id: `rel-${index}`,
             type: 'related',
-            title: getPageTitle(related),
-            description: 'Contenido relacionado',
-            href: related,
+            title: localeTitles[related] || t.fallbackTitle,
+            description: t.relatedDesc,
+            href: fullPath,
             priority: 'medium',
           });
         }
       });
     }
 
-    // Add popular content if few recommendations
     if (recs.length < 3) {
+      const popularContent: Recommendation[] = t.popularItems.map(item => ({
+        ...item,
+        type: 'popular' as const,
+        href: addLocale(item.href, locale),
+        priority: 'high' as const,
+      }));
       const remainingPopular = popularContent.filter(
         pop => !journey.visitedPaths.includes(pop.href) && pop.href !== path
       );
@@ -221,46 +328,16 @@ export function SmartRecommendations({ currentPath }: { currentPath: string }) {
     return recs.slice(0, 4);
   };
 
-  const getPageTitle = (path: string): string => {
-    const titles: Record<string, string> = {
-      '/es/docs/primeros-pasos/crear-cuenta': 'Crear Cuenta',
-      '/es/docs/primeros-pasos/seleccionar-plan': 'Seleccionar Plan',
-      '/es/docs/primeros-pasos/planes-disponibles': 'Planes Disponibles',
-      '/es/docs/configurar-negocio/informacion-del-negocio': 'Información del Negocio',
-      '/es/docs/configurar-negocio/brief-audio': 'Crear Brief con Audio',
-      '/es/docs/configurar-negocio/revisar-brief': 'Revisar Brief',
-      '/es/docs/conectar-plataformas': 'Conectar Plataformas',
-      '/es/docs/conectar-plataformas/meta-ads/requisitos-previos': 'Requisitos Meta Ads',
-      '/es/docs/conectar-plataformas/meta-ads/conectar-facebook': 'Conectar Facebook',
-      '/es/docs/conectar-plataformas/meta-ads/seleccionar-business-manager': 'Seleccionar Business Manager',
-      '/es/docs/conectar-plataformas/meta-ads/cuenta-publicitaria': 'Cuenta Publicitaria',
-      '/es/docs/conectar-plataformas/meta-ads/activos-opcionales': 'Activos Opcionales',
-      '/es/docs/conectar-plataformas/meta-ads/problemas-meta': 'Solución de Problemas Meta',
-      '/es/docs/estrategias/que-es-estrategia': '¿Qué es una Estrategia?',
-      '/es/docs/estrategias/explorar-estrategias': 'Explorar Estrategias',
-      '/es/docs/estrategias/configurar-estrategia': 'Configurar Estrategia',
-      '/es/docs/generar-creativos/introduccion-al-generador': 'Generador de Creativos',
-      '/es/docs/generar-creativos/prompts-efectivos': 'Prompts Efectivos',
-      '/es/docs/lanzar-campana/lanzar-meta': 'Lanzar en Meta',
-      '/es/docs/lanzar-campana/revision-final': 'Revisión Final',
-      '/es/docs/lanzar-campana/gestionar-campanas': 'Gestionar Campañas',
-      '/es/docs/lanzar-campana/estrategias-lanzadas': 'Estrategias Lanzadas',
-      '/es/docs/lanzar-campana/editar-copies': 'Editar Copies',
-    };
-    return titles[path] || 'Documentación';
-  };
-
   const markCompleted = (href: string) => {
     const stored = localStorage.getItem('user-journey');
-    const journey: UserJourney = stored 
+    const journey: UserJourney = stored
       ? JSON.parse(stored)
       : { currentPath: '', visitedPaths: [], completedSteps: [] };
-    
+
     if (!journey.completedSteps.includes(href)) {
       journey.completedSteps.push(href);
       localStorage.setItem('user-journey', JSON.stringify(journey));
-      
-      // Update recommendations
+
       const recs = generateRecommendations(currentPath, journey);
       setRecommendations(recs);
     }
@@ -278,11 +355,11 @@ export function SmartRecommendations({ currentPath }: { currentPath: string }) {
 
   const getLabel = (type: string) => {
     switch (type) {
-      case 'next-step': return 'Siguiente paso';
-      case 'prerequisite': return 'Recomendado primero';
-      case 'related': return 'Relacionado';
-      case 'popular': return 'Popular';
-      default: return 'Recomendado';
+      case 'next-step': return t.nextStep;
+      case 'prerequisite': return t.prerequisite;
+      case 'related': return t.related;
+      case 'popular': return t.popular;
+      default: return t.recommended;
     }
   };
 
@@ -317,7 +394,7 @@ export function SmartRecommendations({ currentPath }: { currentPath: string }) {
         <div className="flex items-center gap-2">
           <Lightbulb className="h-4 w-4 text-fd-primary" />
           <span className="text-sm font-medium text-fd-foreground">
-            Recomendaciones
+            {t.recommendations}
           </span>
         </div>
         <div className="flex items-center gap-1">
@@ -364,12 +441,12 @@ export function SmartRecommendations({ currentPath }: { currentPath: string }) {
                   </p>
                 </div>
               </div>
-              
+
               {/* Mark as completed */}
               <button
                 onClick={() => markCompleted(rec.href)}
                 className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                title="Marcar como completado"
+                title={t.markCompleted}
               >
                 <Circle className="h-4 w-4 text-fd-muted-foreground hover:text-green-500" />
               </button>
@@ -381,10 +458,10 @@ export function SmartRecommendations({ currentPath }: { currentPath: string }) {
       {/* Footer */}
       <div className="px-4 py-2 bg-fd-accent/20 border-t text-center">
         <Link
-          href="/es"
+          href={`/${locale}`}
           className="text-xs text-fd-muted-foreground hover:text-fd-primary transition-colors inline-flex items-center gap-1"
         >
-          Ver todo el contenido
+          {t.viewAll}
           <ArrowRight className="h-3 w-3" />
         </Link>
       </div>

@@ -2,7 +2,7 @@
 const primerosPasos = '/images/screenshots/01-primeros-pasos/configura-tu-cuenta.png';
 const conectarPlataformas =
   '/images/screenshots/02-conectar-plataformas/conecta-tus-plataformas.png';
-const menu = '/images/screenshots/03-configurar-negocio/nuevo-negocio-menu.png';
+const menu = '/images/screenshots/03-configurar-negocio/onboarding-configura-negocio.png';
 const modal = '/images/screenshots/03-configurar-negocio/crear-negocio-modal.png';
 const planesCreditos =
   '/images/screenshots/07-planes-creditos/creditos-configuracion.png';

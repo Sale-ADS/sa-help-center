@@ -1,8 +1,10 @@
 {
-  "title": "Configurar Negocio",
+  "title": "Configurar Mi Negocio",
   "icon": "Building2",
   "pages": [
-    "brief-audio",
-    "revisar-brief"
+    "como-definir-tu-marca",
+    "con-sitio-web",
+    "sin-sitio-web",
+    "editar-mi-negocio"
   ]
 }

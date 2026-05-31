@@ -44,9 +44,9 @@ const content: Record<string, { title: string; subtitle: string; cards: CardItem
       },
       {
         icon: <Building2 />,
-        title: 'Configurar Negocio',
-        description: 'Define tu marca, audiencia y brief con IA',
-        href: '/es/docs/configurar-negocio/brief-audio',
+        title: 'Configurar Mi Negocio',
+        description: 'Configura tu marca, productos y audiencia con IA',
+        href: '/es/docs/configurar-negocio/como-definir-tu-marca',
         image: entryPreviewImages.configureBusiness,
       },
       {
@@ -114,9 +114,9 @@ const content: Record<string, { title: string; subtitle: string; cards: CardItem
       },
       {
         icon: <Building2 />,
-        title: 'Configure Business',
-        description: 'Define your brand, audience and AI brief',
-        href: '/en/docs/configurar-negocio/brief-audio',
+        title: 'Set Up My Business',
+        description: 'Configure your brand, products, and audience with AI',
+        href: '/en/docs/configurar-negocio/como-definir-tu-marca',
         image: entryPreviewImages.configureBusiness,
       },
       {

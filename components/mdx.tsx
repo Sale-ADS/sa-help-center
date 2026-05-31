@@ -1,6 +1,7 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { Steps, Step } from 'fumadocs-ui/components/steps';
 import { PreviewCard } from '@/components/preview-card';
+import { ScreenshotPlaceholder } from '@/components/screenshot-placeholder';
 import {
   UserPlus,
   Link2,
@@ -11,6 +12,9 @@ import {
   Rocket,
   HelpCircle,
   BookOpen,
+  Globe,
+  Mic,
+  FileText,
 } from 'lucide-react';
 import { MetaIcon, GoogleIcon, TikTokIcon } from '@/components/icons';
 import type { MDXComponents } from 'mdx/types';
@@ -19,6 +23,7 @@ export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
     PreviewCard,
+    ScreenshotPlaceholder,
     Steps,
     Step,
     UserPlus,
@@ -30,6 +35,9 @@ export function getMDXComponents(components?: MDXComponents) {
     Rocket,
     HelpCircle,
     BookOpen,
+    Globe,
+    Mic,
+    FileText,
     MetaIcon,
     GoogleIcon,
     TikTokIcon,
