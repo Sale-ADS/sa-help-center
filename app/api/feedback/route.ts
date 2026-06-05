@@ -25,8 +25,9 @@ function generateId(): string {
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
-    const forwardedFor = request.headers.get('x-forwarded-for');
-    const ip = forwardedFor?.split(',')[0] || 'unknown';
+    const ip = request.headers.get('cf-connecting-ip')
+      || request.headers.get('x-forwarded-for')?.split(',')[0]
+      || 'unknown';
     
     // Check rate limit
     if (!checkRateLimit(ip, RATE_LIMIT_MAX)) {

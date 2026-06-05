@@ -18,8 +18,9 @@ const RATE_LIMIT_MAX = 50;
 
 export async function POST(request: NextRequest) {
   try {
-    const forwardedFor = request.headers.get('x-forwarded-for');
-    const ip = forwardedFor?.split(',')[0] || 'unknown';
+    const ip = request.headers.get('cf-connecting-ip')
+      || request.headers.get('x-forwarded-for')?.split(',')[0]
+      || 'unknown';
     
     if (!checkRateLimit(ip, RATE_LIMIT_MAX)) {
       return NextResponse.json(
