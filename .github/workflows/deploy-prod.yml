@@ -1,0 +1,123 @@
+name: Deploy to Cloud Run (PROD)
+
+# Manual only. Never triggers on push. Operator picks a specific image SHA
+# (typically one already validated in staging) to promote to prod.
+on:
+  workflow_dispatch:
+    inputs:
+      image_sha:
+        description: 'Git SHA of the image to promote (must already exist in Artifact Registry — pushed by staging deploy)'
+        required: true
+        type: string
+      confirm:
+        description: 'Type "deploy to prod" to confirm'
+        required: true
+        type: string
+
+env:
+  GCP_PROJECT: saleads-prod
+  GCP_REGION: us-central1
+  AR_REPO: sa-help-center
+  IMAGE_NAME: app
+  SERVICE_NAME: sa-help-center
+  RUNTIME_SA: sa-help-center-runtime@saleads-prod.iam.gserviceaccount.com
+  SECRET_GEMINI: saleads-help-center-gemini-api-key-prod
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    name: Promote image to prod
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Confirmation gate
+        run: |
+          if [ "${{ inputs.confirm }}" != "deploy to prod" ]; then
+            echo "::error::Confirmation phrase did not match. Type 'deploy to prod' to proceed."
+            exit 1
+          fi
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY_HELP_CENTER }}
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Verify image exists in Artifact Registry
+        env:
+          IMAGE: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}:${{ inputs.image_sha }}
+        run: |
+          if ! gcloud artifacts docker images describe "$IMAGE" --format='value(image_summary.digest)' >/dev/null 2>&1; then
+            echo "::error::Image $IMAGE not found in Artifact Registry. Build it via staging deploy first."
+            exit 1
+          fi
+          echo "Image $IMAGE found, ready to promote"
+
+      - name: Deploy to Cloud Run prod
+        env:
+          IMAGE: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}:${{ inputs.image_sha }}
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --project=${{ env.GCP_PROJECT }} \
+            --region=${{ env.GCP_REGION }} \
+            --image="$IMAGE" \
+            --service-account=${{ env.RUNTIME_SA }} \
+            --port=8080 \
+            --cpu=1 \
+            --memory=1Gi \
+            --min-instances=1 \
+            --max-instances=10 \
+            --concurrency=80 \
+            --timeout=60 \
+            --execution-environment=gen2 \
+            --set-env-vars=NODE_ENV=production,GEMINI_MODEL=gemini-2.5-flash-lite,BQ_PROJECT_ID=${{ env.GCP_PROJECT }},BQ_DATASET=saleads_help_center,BQ_LOCATION=${{ env.GCP_REGION }} \
+            --set-secrets=GEMINI_API_KEY=${{ env.SECRET_GEMINI }}:latest \
+            --labels=env=prod,owner=help-center,managed_by=migration-cloud-run \
+            --allow-unauthenticated
+
+      - name: Get service URL
+        id: url
+        run: |
+          URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --project=${{ env.GCP_PROJECT }} \
+            --region=${{ env.GCP_REGION }} \
+            --format='value(status.url)')
+          echo "url=$URL" >> $GITHUB_OUTPUT
+          echo "Prod URL: $URL"
+
+      - name: Smoke test /api/health
+        run: |
+          URL="${{ steps.url.outputs.url }}"
+          for i in 1 2 3 4 5; do
+            RESPONSE=$(curl -fsSL "$URL/api/health" || echo "")
+            if echo "$RESPONSE" | grep -q '"status":"ok"'; then
+              echo "Health check passed: $RESPONSE"
+              # Verify commit matches what we deployed
+              if echo "$RESPONSE" | grep -q "${{ inputs.image_sha }}"; then
+                echo "Deployed commit matches expected SHA"
+                exit 0
+              else
+                echo "::warning::Health returned ok but commit SHA does not match expected ${{ inputs.image_sha }}"
+                exit 0
+              fi
+            fi
+            echo "Attempt $i failed, retrying in 5s..."
+            sleep 5
+          done
+          echo "::error::Health check failed after 5 attempts"
+          exit 1
+
+      - name: Summary
+        run: |
+          echo "### PROD deploy complete" >> $GITHUB_STEP_SUMMARY
+          echo "- Service: ${{ env.SERVICE_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Image: ${{ inputs.image_sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- URL: ${{ steps.url.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Note: this URL is the direct Cloud Run hostname. Public traffic via help.saleads.ai depends on the domain mapping + Cloudflare DNS." >> $GITHUB_STEP_SUMMARY
