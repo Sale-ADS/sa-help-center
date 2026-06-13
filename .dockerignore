@@ -1,0 +1,35 @@
+# VCS
+.git
+.gitignore
+.github
+
+# Node / build artifacts (rebuilt inside container)
+node_modules
+.next
+out
+.turbo
+.npm
+
+# Local env files (secrets must come via runtime, never baked in)
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+
+# Vercel artifacts (irrelevant for Cloud Run)
+.vercel
+
+# Docker meta
+Dockerfile
+.dockerignore
+
+# Editor / OS noise
+.DS_Store
+.vscode
+.idea
+*.swp
+*.log
+
+# pnpm leftover (we use npm in the image)
+pnpm-lock.yaml

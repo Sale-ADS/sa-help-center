@@ -1,0 +1,119 @@
+name: Deploy to Cloud Run (staging)
+
+on:
+  push:
+    branches:
+      - main
+      - 'migration/**'
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT: saleads-prod
+  GCP_REGION: us-central1
+  AR_REPO: sa-help-center
+  IMAGE_NAME: app
+  SERVICE_NAME: sa-help-center-staging
+  RUNTIME_SA: sa-help-center-runtime@saleads-prod.iam.gserviceaccount.com
+  SECRET_GEMINI: saleads-help-center-gemini-api-key-prod
+
+concurrency:
+  group: deploy-staging-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build, push, deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY_HELP_CENTER }}
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build and tag image
+        env:
+          IMAGE_BASE: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}
+        run: |
+          docker build \
+            --build-arg GIT_COMMIT_SHA=${{ github.sha }} \
+            -t "${IMAGE_BASE}:${{ github.sha }}" \
+            -t "${IMAGE_BASE}:latest" \
+            .
+          echo "IMAGE_TAGGED=${IMAGE_BASE}:${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Push image
+        env:
+          IMAGE_BASE: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}
+        run: |
+          docker push "${IMAGE_BASE}:${{ github.sha }}"
+          docker push "${IMAGE_BASE}:latest"
+
+      - name: Deploy to Cloud Run staging
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --project=${{ env.GCP_PROJECT }} \
+            --region=${{ env.GCP_REGION }} \
+            --image="$IMAGE_TAGGED" \
+            --service-account=${{ env.RUNTIME_SA }} \
+            --port=8080 \
+            --cpu=1 \
+            --memory=1Gi \
+            --min-instances=0 \
+            --max-instances=5 \
+            --concurrency=80 \
+            --timeout=60 \
+            --execution-environment=gen2 \
+            --set-env-vars=NODE_ENV=production,GEMINI_MODEL=gemini-2.5-flash-lite,BQ_PROJECT_ID=${{ env.GCP_PROJECT }},BQ_DATASET=saleads_help_center,BQ_LOCATION=${{ env.GCP_REGION }} \
+            --set-secrets=GEMINI_API_KEY=${{ env.SECRET_GEMINI }}:latest \
+            --allow-unauthenticated
+
+      - name: Get service URL
+        id: url
+        run: |
+          URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --project=${{ env.GCP_PROJECT }} \
+            --region=${{ env.GCP_REGION }} \
+            --format='value(status.url)')
+          echo "url=$URL" >> $GITHUB_OUTPUT
+          echo "Service URL: $URL"
+
+      - name: Smoke test /api/health
+        run: |
+          URL="${{ steps.url.outputs.url }}"
+          for i in 1 2 3 4 5; do
+            if curl -fsSL "$URL/api/health" | tee health.json | grep -q '"status":"ok"'; then
+              echo "Health check passed"
+              cat health.json
+              exit 0
+            fi
+            echo "Attempt $i failed, retrying in 5s..."
+            sleep 5
+          done
+          echo "Health check failed after 5 attempts"
+          exit 1
+
+      - name: Comment service URL on related PR
+        if: github.event_name == 'push'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER=$(gh pr list --head ${{ github.ref_name }} --json number --jq '.[0].number // empty' 2>/dev/null || echo "")
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr comment "$PR_NUMBER" --body "Staging deploy ready: ${{ steps.url.outputs.url }} (commit \`${{ github.sha }}\`)"
+          else
+            echo "No open PR for branch ${{ github.ref_name }}, skipping comment"
+          fi

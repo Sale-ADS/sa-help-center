@@ -10,6 +10,7 @@
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
+    "@google-cloud/bigquery": "^7.9.0",
     "@google/generative-ai": "^0.24.1",
     "@radix-ui/react-collapsible": "^1.1.12",
     "@radix-ui/react-tabs": "^1.1.13",
@@ -24,6 +25,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-markdown": "^10.1.0",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {

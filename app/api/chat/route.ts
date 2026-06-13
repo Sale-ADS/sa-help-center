@@ -188,8 +188,9 @@ export async function POST(request: NextRequest) {
     const { message, locale = 'es', history = [], pageContext } = body;
     
     // Rate limiting
-    const forwardedFor = request.headers.get('x-forwarded-for');
-    const ip = forwardedFor?.split(',')[0] || 'unknown';
+    const ip = request.headers.get('cf-connecting-ip')
+      || request.headers.get('x-forwarded-for')?.split(',')[0]
+      || 'unknown';
     
     if (!checkRateLimit(ip, RATE_LIMIT_MAX)) {
       return NextResponse.json(
@@ -258,8 +259,15 @@ export async function POST(request: NextRequest) {
         ],
       });
     } catch (chatError) {
+      console.error(JSON.stringify({
+        severity: 'ERROR',
+        event: 'chat_start_failed',
+        model: modelName,
+        locale,
+        error: chatError instanceof Error ? chatError.message : String(chatError),
+      }));
       return NextResponse.json(
-        { 
+        {
           error: 'Failed to start conversation. Please try again.',
           errorCode: 'CHAT_ERROR'
         },
@@ -272,9 +280,15 @@ export async function POST(request: NextRequest) {
     try {
       result = await chat.sendMessage(message + contextMessage);
     } catch (generateError: any) {
-      
-      // Check for specific Gemini API errors
       const errorMessage = generateError?.message || '';
+      console.error(JSON.stringify({
+        severity: 'ERROR',
+        event: 'gemini_generation_failed',
+        model: modelName,
+        locale,
+        error: errorMessage,
+        status: generateError?.status || generateError?.statusCode,
+      }));
       if (errorMessage.includes('API key')) {
         return NextResponse.json(
           { 
