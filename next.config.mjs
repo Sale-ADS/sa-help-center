@@ -40,11 +40,6 @@ const config = {
         permanent: true,
       },
       {
-        source: '/es/docs/configurar-negocio/ubicacion-audiencia',
-        destination: '/es/docs/configurar-negocio/como-definir-tu-marca',
-        permanent: true,
-      },
-      {
         source: '/es/docs/configurar-negocio/revisar-brief',
         destination: '/es/docs/configurar-negocio/como-definir-tu-marca',
         permanent: true,
@@ -56,11 +51,6 @@ const config = {
       },
       {
         source: '/en/docs/configurar-negocio/redes-sociales',
-        destination: '/en/docs/configurar-negocio/como-definir-tu-marca',
-        permanent: true,
-      },
-      {
-        source: '/en/docs/configurar-negocio/ubicacion-audiencia',
         destination: '/en/docs/configurar-negocio/como-definir-tu-marca',
         permanent: true,
       },
